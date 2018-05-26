@@ -1,0 +1,14 @@
+<div class="container_one_event" >
+  <div class="bread_crumbs" >
+    <a [routerLink]="'/'" class="bread_home">{lang, select, ua{Головна} ru {Главная}}</a>
+    <a [routerLink]="'/list'" class="bread_home">{lang, select, ua{Категорія} ru {Категория}}</a>
+    <span class="active_bread_crumbs">{lang, select, ua{Назва події} ru {Название события}}</span>
+  </div>
+  <div class="index_content_event" *ngIf="isReady">
+    <div class="img_back" [ngStyle]="{'background':'url('+url+usage.photoPath+')'}"></div>
+    <h2>{{usage.name}}</h2>
+    <p class="description">{{usage.offerDescription}}</p>
+    <span>{{usage.name}}</span>
+    <a href="#">{{usage.id}}</a>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<form class="home_content">
+  <p class="text">
+    {lang, select, ua{Заповніть поля і пориньте в розваги!} ru {Заполните поля и окунитесь в развлечения!}}
+  </p>
+  <input type="number" class="input_sum" placeholder="Введіть суму" #priceInput>
+  <span class="currency">грн.</span>
+  <input type="text" class="input_text" placeholder="Введіть побажання" #researchId>
+  <select class="input_select" #idSelect>
+    <option value=""></option>
+    <option *ngFor="let one of  categoriesList" value="{{one.id}}">{{one.name}}</option>
+  </select>
+  <button (click)="research(researchId,priceInput,idSelect)" class="btn_search" title="Знайти">{lang, select, ua{Знайти} ru {Найти}}</button>
+</form>

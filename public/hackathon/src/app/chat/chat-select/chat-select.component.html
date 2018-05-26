@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="index_content">
+    <p class="index_text">Виберіть категорію і почніть спілкування!</p>
+    <select class="input_select" #idSelect>
+      <option *ngFor="let one of  categoriesList" value="{{one.id}}">{{one.name}}</option>
+    </select>
+  </div>
+</div>

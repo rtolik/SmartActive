@@ -1,0 +1,228 @@
+.main_log_container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  /*background: url("../../assets/images/main_backg.jpg");*/
+  display: flex;
+  background: url("../../assets/images/main_back.jpg");
+  justify-content: center;
+  align-items: center;
+}
+
+.index_content {
+  width: 35vh;
+  height: 50vh;
+  background: rgba(0, 0, 0, .5);
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+
+h1 {
+  color: #fff;
+  display: block;
+  margin: auto;
+  margin: 3vh;
+  font-size: 1.5vw;
+  text-transform: uppercase;
+}
+
+.input {
+  width: 80%;
+  overflow: hidden;
+  padding: 1vh 1vw;
+  margin: auto;
+  margin-bottom: 3vh;
+  height: 3vh;
+  display: block;
+  font-size: 1.2vw;
+  border-radius: 20px;
+}
+
+a {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+}
+
+.pass {
+  display: block;
+  margin: auto;
+  text-align: left;
+  width: 90%;
+  font-size: 1vw;
+  margin-bottom: 15vh;
+  margin-left: 2vw;
+
+}
+
+.enter {
+  padding: 1vh 2vw;
+  background: #fff;
+  color: #000;
+  font-size: 1.2vw;
+  /*border: 1px solid #fff;*/
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+  border-radius: 20px;
+  position: absolute;
+  bottom: 30vh;
+}
+
+.enter:hover {
+  background: #000000;
+  color: #fff;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px){
+  .main_log_container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    /*background: url("../../assets/images/main_backg.jpg");*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .index_content {
+    width: 100vh;
+    height:   100vh;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 0;
+    text-align: center;
+    position: relative;
+  }
+
+  h1 {
+    color: #fff;
+    display: block;
+    margin: auto;
+    margin: 6vh;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .input {
+    width: 90%;
+    overflow: hidden;
+    padding: 1vh 3vw;
+    margin: auto;
+    margin-bottom: 4vh;
+    height: 3vh;
+    display: block;
+    font-size: 1rem;
+    border-radius: 20px;
+  }
+
+  a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .pass {
+    display: block;
+    margin: auto;
+    text-align: left;
+    width: 90%;
+    font-size: .8rem;
+    margin-bottom: 10vh;
+    margin-left: 5vw;
+
+  }
+
+  .enter {
+    padding: 1vh 4vw;
+    background: #fff;
+    color: #000;
+    font-size:1rem;
+    /*border: 1px solid #fff;*/
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+    border-radius: 20px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 988px){
+  .main_log_container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    /*background: url("../../assets/images/main_backg.jpg");*/
+    display: flex;
+    background: url("../../assets/images/main_back.jpg");
+    justify-content: center;
+    align-items: center;
+  }
+
+  .index_content {
+    width: 100vh;
+    height:   100vh;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 0;
+    text-align: center;
+    position: relative;
+  }
+
+  h1 {
+    color: #fff;
+    display: block;
+    margin: auto;
+    margin: 8vh;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+  }
+
+  .input {
+    width: 90%;
+    overflow: hidden;
+    padding: 2vh 3vw;
+    margin: auto;
+    margin-bottom: 6vh;
+    height: 3vh;
+    display: block;
+    font-size: 2rem;
+    border-radius: 20px;
+  }
+
+  a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .pass {
+    display: block;
+    margin: auto;
+    text-align: left;
+    width: 90%;
+    font-size: 1.8rem;
+    margin-bottom: 15vh;
+    margin-left: 5vw;
+
+  }
+
+  .enter {
+    padding: 1vh 5vw;
+    background: #fff;
+    color: #000;
+    font-size:2rem;
+    /*border: 1px solid #fff;*/
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+    border-radius: 20px;
+    bottom: 20vh;
+  }
+}

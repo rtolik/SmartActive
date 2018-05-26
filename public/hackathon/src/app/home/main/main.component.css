@@ -1,0 +1,270 @@
+.home_content {
+  height: 40vh;
+  overflow: hidden;
+  width: 30vw;
+  background: rgba(0,0,0,.6);
+  margin: auto;
+  margin-top: 30vh;
+
+  padding: 6vh 0;
+  text-align: center;
+  border-radius: 20px;
+  animation: showComponent .8s;
+}
+
+.text {
+  font-size: 1.3vw;
+  margin-bottom: 4vh;
+  color: #ffffff;
+}
+input {
+  border: 2px solid #000000;
+}
+select {
+  border: 2px solid #000000;
+
+}
+
+.input_sum {
+  display: inline-block;
+  width: 13vw;
+  padding: 2vh 2vw;
+  margin: auto;
+  border-radius: 20px;
+  font-size: 1.1vw;
+  margin-bottom: 3vh;
+}
+.currency {
+  display: inline-block;
+  width: 5vw;
+  padding: 2vh 1vw;
+  margin: auto;
+  border-radius: 20px;
+  font-size: 1.1vw;
+  margin-bottom: 3vh;
+  background: #ffffff;
+  border: 2px solid #000000;
+}
+.input_text {
+  display: block;
+  width: 20vw;
+  padding: 2vh 2vw;
+  margin: auto;
+  border-radius: 20px;
+  margin-bottom: 3vh;
+  font-size: 1.1vw;
+}
+
+.input_select {
+  display: block;
+  width: 24vw;
+  padding: 2vh 2vw;
+  margin: auto;
+  border-radius: 20px;
+  margin-bottom: 3vh;
+  overflow: auto;
+}
+.btn_search {
+  display: inline-block;
+  padding: 1vh 2vw;
+  font-size: 1.2vw;
+  border-radius: 20px;
+  background: #000;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+.btn_search:hover {
+  background: #fff;
+  color: #000;
+}
+.input_select option {
+  height: 10vh;
+  background: rgba(0,0,0,.1);
+  border: #000 solid 1px;
+  display: block;
+  color: #000;
+  overflow: scroll;
+}
+@keyframes showComponent {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px){
+  .home_content {
+    height: 60vh;
+    overflow: hidden;
+    width: 96vw;
+    background: rgba(0,0,0,.6);
+    margin: auto;
+    margin-top: 19vh;
+
+    padding: 6vh 0;
+    text-align: center;
+    border-radius: 20px;
+  }
+
+  .text {
+    font-size: 1rem;
+    margin-bottom: 4vh;
+  }
+  input {
+    border: 2px solid #000000;
+  }
+  select {
+    border: 2px solid #000000;
+
+  }
+
+  .input_sum {
+    display: inline-block;
+    width: 59%;
+    padding: 2vh 2vw;
+    margin: auto;
+    border-radius: 20px;
+    font-size: .9rem;
+    margin-bottom: 3vh;
+  }
+  .currency {
+    display: inline-block;
+    width: 19%;
+    padding: 1.7vh .3vw;
+    margin: auto;
+    border-radius: 20px;
+    font-size: 1rem;
+    margin-bottom: 3vh;
+  }
+
+  .input_text {
+    display: block;
+    width: 80%;
+    padding: 2vh 2vw;
+    margin: auto;
+    border-radius: 20px;
+    margin-bottom: 3vh;
+    font-size: .9rem;
+  }
+
+  .input_select {
+    display: block;
+    width: 84.5%;
+    padding: 2vh 2vw;
+    margin: auto;
+    border-radius: 20px;
+    margin-bottom: 10vh;
+    font-size: .9rem;
+  }
+  .btn_search {
+    display: inline-block;
+    padding: 2vh 4vw;
+    font-size: 1rem;
+    line-height: 1rem;
+    border-radius: 20px;
+    background: #000;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .input_select option {
+    height: 10vh;
+    overflow: auto;
+    background: rgba(0,0,0,.1);
+    border: #000 solid 1px;
+    display: block;
+    color: #000;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 988px){
+  .home_content {
+    height: 60vh;
+    overflow: hidden;
+    width: 96vw;
+    background: rgba(0,0,0,.6);
+    margin: auto;
+    margin-top: 19vh;
+
+    padding: 6vh 0;
+    text-align: center;
+    border-radius: 20px;
+  }
+
+  .text {
+    font-size: 2rem;
+    margin-bottom: 4vh;
+  }
+  input {
+    border: 2px solid #000000;
+  }
+  select {
+    border: 2px solid #000000;
+
+  }
+
+  .input_sum {
+    display: inline-block;
+    width: 60%;
+    padding: 2vh 2vw;
+    margin: auto;
+    border-radius: 20px;
+    font-size: 1.8rem;
+    margin-bottom: 3vh;
+  }
+  .currency {
+    display: inline-block;
+    width: 17%;
+    padding: 2vh 1vw;
+    margin: auto;
+    border-radius: 20px;
+    font-size: 1.8rem;
+    margin-bottom: 3vh;
+  }
+
+  .input_text {
+    display: block;
+    width: 80%;
+    padding: 2vh 2vw;
+    margin: auto;
+    border-radius: 20px;
+    margin-bottom: 3vh;
+    font-size: 1.8em;
+  }
+
+  .input_select {
+    display: block;
+    width: 84.5%;
+    padding: 2vh 2vw;
+    margin: auto;
+    border-radius: 20px;
+    margin-bottom: 10vh;
+    font-size: 1.8rem;
+  }
+  .btn_search {
+    display: inline-block;
+    padding: 2vh 4vw;
+    font-size: 2rem;
+    line-height: 2rem;
+    border-radius: 20px;
+    background: #000;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .input_select option {
+    height: 10vh;
+    overflow: auto;
+    background: rgba(0,0,0,.1);
+    border: #000 solid 1px;
+    display: block;
+    color: #000;
+  }
+}

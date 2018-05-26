@@ -1,0 +1,16 @@
+<router-outlet></router-outlet>
+<div class="main_content">
+  <form #opporAdd>
+    <h2>{lang, select, ua {Додати подію} ru {Добавить события}}</h2>
+    <input class="input" type="text" placeholder="Введіть назву події" name="name">
+    <input class="input" type="text" placeholder="Введіть опис події" name="offerDescription">
+    <input class="input" type="file" name="multipartFile">
+    <input class="input" type="text" placeholder="Введіть ціну" name="price">
+    <input class="input" list="dataListId" #dataListID placeholder="Введіть категорію" type="text" name="category" (input)="inputCategory(dataListID)">
+    <datalist id="dataListId">
+      <option *ngFor="let one of dropList" value="{{one}}">{{one}}</option>
+    </datalist>
+  </form>
+  <button (click)="addOpportunities(opporAdd)">{lang, select, ua {Додати} ru {Добавить}}</button>
+<app-manage-usage-one *ngFor="let one of LoadedOpporByUser" [usage]="one"></app-manage-usage-one>
+</div>

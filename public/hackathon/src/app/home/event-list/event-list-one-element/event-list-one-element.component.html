@@ -1,0 +1,16 @@
+<div [routerLink]="'/'+usage.id" class="list_one_element">
+  <img class="img_element" src="{{url+usage.photoPath}}" alt="img">
+  <div class="text_element">
+    <div class="rating">
+      <div class="star" #star_1>&#9733;</div>
+      <div class="star" #star_2>&#9733;</div>
+      <div class="star" #star_3>&#9733;</div>
+      <div class="star" #star_4>&#9733;</div>
+      <div class="star" #star_5>&#9733;</div>
+      <div class="rating_number"></div>
+      <div class="star_text" title="Додати в улюблені" (click)="addUsage()">+</div>
+    </div>
+    <!--<a>{{usage.description}}</a>-->
+    <p>{{usage.offerDescription}}</p>
+  </div>
+</div>
