@@ -20,11 +20,20 @@ public class RateController {
 
 
     @RequestMapping("/incrementVoices")
-    private ResponseEntity incrementRate(@RequestParam(required = false) Integer opportunityId,Integer val){
+    private ResponseEntity incrementRate(@RequestParam(required = false) Integer opportunityId,
+                                         @RequestParam(required = false) Integer val){
         if(opportunityId==null||val==null)
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         rateService.incrementVoices(opportunityId,val);
         rateService.countAvgInOpportunity(opportunityId);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping("/countAvg")
+    private  ResponseEntity<Integer> countAvg(@RequestParam Integer opportId){
+        if (opportId==null)
+            return new ResponseEntity<Integer>(HttpStatus.NO_CONTENT);
+        else
+            return new ResponseEntity<Integer>(rateService.countAvgInOpportunity(opportId),HttpStatus.OK);
     }
 }

@@ -33,6 +33,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
     @Override
     public User findOne(Integer id) {
         return userRepository.findOne(id);
@@ -72,9 +76,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void ban(String name, Boolean isActive) {
         if (findByName(name).getBansCount() - 1 > 0) {
-            save(findByName(name).setBansCount(findByName(name).getBansCount() - 1));
+            saveUser(findByName(name).setBansCount(findByName(name).getBansCount() - 1));
         } else {
-            save(findByName(name).setBansCount(5).setActive(isActive));
+            saveUser(findByName(name).setBansCount(5).setActive(isActive));
         }
 
     }
@@ -84,16 +88,14 @@ public class UserServiceImpl implements UserService {
         User current = findByName(name);
         if (current == null)
             return null;
-        if (current.getPassword().equals(encoder.encode(password)))
+        if (current.getPassword().equals(encoder.encode(password)) && current.getActive())
             return true;
         return false;
     }
 
     @Override
     public User findByName(String name) {
-        return findAll().stream()
-                .filter(user -> user.getName().equals(name))
-                .findFirst().get();
+        return userRepository.findByName(name);
     }
 
     @Override

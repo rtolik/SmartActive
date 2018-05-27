@@ -2,12 +2,15 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {Usage} from "../../../../environments/models/usage";
 import {AppComponent} from "../../../app.component";
 import {Url} from "../../../../environments/url";
+import {RateService} from "../../../../shared/services/rate.service";
+import {EventOneService} from "../../event-one/event-one.service";
 
 
 @Component({
   selector: 'app-event-list-one-element',
   templateUrl: './event-list-one-element.component.html',
-  styleUrls: ['./event-list-one-element.component.css']
+  styleUrls: ['./event-list-one-element.component.css'],
+  providers: [RateService,EventOneService]
 })
 export class EventListOneElementComponent implements OnInit {
 
@@ -19,18 +22,14 @@ export class EventListOneElementComponent implements OnInit {
 
   @Input() usage: Usage;
   lang: string;
-  numberRating: number;
   countStar: number;
   url:string=Url.url;
 
-  constructor() {
+  constructor(private rateService : RateService,private  eventOneService :EventOneService) {
     this.lang = AppComponent.langService.slang;
     AppComponent.langService._lang$.subscribe(next => {
       this.lang = next;
     });
-    let num = Math.random() * 5;
-    this.countStar = Math.floor(num);
-    this.numberRating = num - this.countStar;
   }
 
   addUsage() {
@@ -38,7 +37,12 @@ export class EventListOneElementComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.changeStar();
+    this.rateService.loadRate(this.usage.id)
+      .subscribe(next=>{
+        this.countStar=next;
+        this.changeStar();
+        },
+        error2 => console.error(error2));
   }
 
   changeStar() {
@@ -67,6 +71,14 @@ export class EventListOneElementComponent implements OnInit {
       this.star_4.nativeElement.style.color = "yellow";
       this.star_5.nativeElement.style.color = "yellow";
     }
+  }
+
+  incrementVoices(value:number, id:number){
+    this.eventOneService.incrementVoices(value,id)
+      .subscribe(
+        next=>console.log(next),
+        error2 => console.error(error2)
+      );
   }
 
 

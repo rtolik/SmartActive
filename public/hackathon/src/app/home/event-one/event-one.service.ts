@@ -19,4 +19,8 @@ export class EventOneService {
       .catch((error) => Observable.throw(error));
   }
 
+  incrementVoices(value:number, id:number):Observable<any> {
+    return this._http.get(`${Url.url}/rate/incrementVoices?opportunityId=${id}&val=${value}`)
+      .catch(error=> Observable.throw(error));
+  }
 }

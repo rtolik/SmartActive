@@ -46,4 +46,11 @@ export class MenageUsageService {
     return this._http.get(userUrl, options);
   }
 
+  setOpporActive(active:boolean,id:number) : Observable<any>{
+    return this._http.get(`${Url.url}/services/setActive?activity=${active}&id=${id}`)
+      .map(res => res.json())
+      .catch(err=>Observable.throw(err))
+      ;
+  }
+
 }

@@ -14,6 +14,8 @@ public interface OpportunitiesService {
 
     List<Opportunities> findAll();
 
+    List<Opportunities> findAllActive();
+
     void delete(Integer id);
 
     void setActive(Boolean active, Principal principal,Integer opportunityId);

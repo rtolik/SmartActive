@@ -54,6 +54,11 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     }
 
     @Override
+    public List<Opportunities> findAllActive() {
+        return findAll().stream().filter(opportunities -> opportunities.getActive().equals(true)).collect(toList());
+    }
+
+    @Override
     public void delete(Integer id) {
         opportunitiesRepository.delete(id);
     }
@@ -63,8 +68,15 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
         userRepository.findByName(principal.getName()).getServices()
                 .stream()
                 .filter(opportunities -> opportunities.getId().equals(opportunityId))
-                .forEach(opportunities -> opportunities.setActive(active));
+                .forEach(opportunities -> {
+                    updateOppor(opportunities.setActive(active));
+                    System.out.println("I`m here");
+                });
 
+    }
+
+    private void updateOppor(Opportunities opportunities){
+        opportunitiesRepository.save(opportunities);
     }
 
     @Override
@@ -91,7 +103,7 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
                         &&!splitedWorld.equals("или")
                         &&!splitedWorld.equals(",")
                         &&!splitedWorld.equals("."))
-                    if (opportunities.getOfferDescription().contains(word))
+                    if (opportunities.getOfferDescription().contains(word) && opportunities.getActive().equals(true))
                         opportunitiesList.add(opportunities);
             }
         }
@@ -171,7 +183,9 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     @Override
     public List<Opportunities> filterListByKeywords(List<Opportunities> filterlist, String keywords) {
         return filterlist.stream()
-                .filter(opportunities -> filterOpportunityBySplitedKeywords(opportunities.getId(), keywords))
+                .filter(opportunities -> filterOpportunityBySplitedKeywords(opportunities.getId(), keywords)
+                        &&
+                        opportunities.getActive().equals(true))
                 .collect(toList());
     }
 

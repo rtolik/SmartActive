@@ -1,7 +1,6 @@
 <div class="container">
-  <input type="checkbox">
+  <input type="checkbox"   (change)="setActivity()" [checked]="usage.active ">
   <p>
-    manage-usage-one works!
     {{usage.name}}
   </p>
 </div>

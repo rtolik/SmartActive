@@ -70,6 +70,17 @@ public class OpportunitiesController {
         return new ResponseEntity<>(opportunitiesService.findAll(),HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/findAllActive",method = RequestMethod.GET)
+    private ResponseEntity<List<Opportunities>> findAllActive(){
+
+        List<Opportunities> opportunities =opportunitiesService.findAllActive();
+        if(opportunities ==null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(opportunities,HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/findByUser",method = RequestMethod.GET)
     private ResponseEntity<List<Opportunities>> findByUser(Principal principal){
 
@@ -109,7 +120,7 @@ public class OpportunitiesController {
         return  new ResponseEntity<>(opportunitiesService.findAllByCategory(id),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/setActive",method = RequestMethod.POST)
+    @RequestMapping(value = "/setActive",method = RequestMethod.GET)
     private ResponseEntity setActive(@RequestParam(required = false) Boolean activity,
                                      @RequestParam(required = false) Principal principal,
                                      @RequestParam(required = false) Integer id)

@@ -19,6 +19,10 @@ export class EventOneComponent implements OnInit {
   url: string = Url.url;
 
   constructor(private _route: ActivatedRoute, private  _service: EventOneService) {
+
+  }
+
+  ngOnInit() {
     this.lang = AppComponent.langService.slang;
     AppComponent.langService._lang$.subscribe(next => {
       this.lang = next;
@@ -27,13 +31,10 @@ export class EventOneComponent implements OnInit {
       this.isReady = false;
       this._service.loadUsage(param["id"]).subscribe(next => {
         this.usage = next;
-        this.isReady = true;
+        this.isReady = this.usage.active;
       });
     });
 
-  }
-
-  ngOnInit() {
   }
 
 }

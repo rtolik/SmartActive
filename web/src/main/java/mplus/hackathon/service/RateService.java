@@ -18,6 +18,6 @@ public interface RateService {
 
     void incrementVoices(Integer opportunityId, Integer val);
 
-    void countAvgInOpportunity(Integer opportnityId);
+    Integer countAvgInOpportunity(Integer opportnityId);
 
 }

@@ -52,7 +52,7 @@ public class RateServiceImpl implements RateService{
     }
 
     @Override
-    public void countAvgInOpportunity(Integer opportnityId) {
+    public Integer countAvgInOpportunity(Integer opportnityId) {
         Double avg;
         Double coutGrades=0.0;
         Double countVoices=0.0;
@@ -65,5 +65,7 @@ public class RateServiceImpl implements RateService{
         }
         avg=coutGrades/countVoices;
         opportunitiesService.save(opportunitiesService.findOne(opportnityId).setRating(Math.round(avg * 100.0) / 100.0));
+        Long lon = Math.round(avg);
+        return lon.intValue();
     }
 }
