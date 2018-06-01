@@ -13,6 +13,7 @@ exports.config = {
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
+  // baseUrl: 'http://smartactive.hopto.org',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,

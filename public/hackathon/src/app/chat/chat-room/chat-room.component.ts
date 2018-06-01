@@ -5,6 +5,7 @@ import {Message} from "../../../environments/models/message";
 import {User} from "../../../environments/models/user";
 import {AppComponent} from "../../app.component";
 import {$WebSocket} from "angular2-websocket/angular2-websocket";
+import {Url} from "../../../environments/url";
 
 @Component({
   selector: 'app-chat-room',
@@ -25,7 +26,7 @@ export class ChatRoomComponent implements OnInit {
     AppComponent.langService._lang$.subscribe(next => {
       this.lang = next;
     });
-    this.ws = new $WebSocket("ws://localhost:8080/websocket-chat");
+    this.ws = new $WebSocket(Url.ws +"/websocket-chat");
     this.user = AppComponent.userDetailsService.user;
     AppComponent.userDetailsService._user$.subscribe(next => {
       this.user = next;
