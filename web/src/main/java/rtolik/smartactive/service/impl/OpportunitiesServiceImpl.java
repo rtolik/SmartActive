@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import rtolik.smartactive.models.Opportunities;
 import rtolik.smartactive.models.Rate;
+import rtolik.smartactive.models.User;
 import rtolik.smartactive.models.enums.Status;
 import rtolik.smartactive.repository.OpportunitiesRepository;
 import rtolik.smartactive.service.CategoryService;
@@ -106,6 +107,14 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public void saveOpportunitiesToUserLiked(Principal principal, Integer id) {
+        User user= userService.findByName(principal.getName());
+        List<Opportunities> liked = user.getLiked();
+        liked.add(findOne(id));
+        user.setLiked(liked);
     }
 
     @Override

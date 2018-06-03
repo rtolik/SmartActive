@@ -26,6 +26,8 @@ public interface OpportunitiesService {
 
     Boolean saveOpportunitiesToUser(Principal principal,Integer id);
 
+    void saveOpportunitiesToUserLiked(Principal principal,Integer id);
+
     Opportunities createOpportunities(String opportunity,
                                       MultipartFile multipartFile, Principal principal);
 
