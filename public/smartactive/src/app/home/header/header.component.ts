@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {AppComponent} from "../../app.component";
+import {UserDetailsService} from "../../../shared/service/user-details-service";
 
 @Component({
   selector: 'app-header',
@@ -15,10 +16,10 @@ export class HeaderComponent implements OnInit {
 
   auth: boolean;
 
-  constructor() {
+  constructor(private _userDetails:UserDetailsService) {
 
-    this.auth = AppComponent.userDetailsService.isAuthenticated;
-    AppComponent.userDetailsService._isAuthenticated$.subscribe(next => {
+    this.auth = this._userDetails.isAuth;
+    this._userDetails.isAuth$.subscribe(next => {
       this.auth = next;
     });
 

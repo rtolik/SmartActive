@@ -27,8 +27,9 @@ import {SettingsComponent} from "./home/cabinet/settings/settings.component";
 import {ManageUsageOneComponent} from "./home/cabinet/manage-usage/manage-usage-one/manage-usage-one.component";
 import {SaveUsageOneComponent} from "./home/cabinet/save-usage/save-usage-one/save-usage-one.component";
 import {ActiveGuard} from "../shared/can-active/auth-guard";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CustomHttpInterceptor} from "../shared/interceptors/custom-http.interceptor";
+import {UserDetailsService} from "../shared/service/user-details-service";
 
 
 const routes: Routes = [
@@ -86,6 +87,7 @@ const routes: Routes = [
     ],
     imports: [
         HttpModule,
+        HttpClientModule,
         BrowserModule,
         RouterModule.forRoot(routes, {useHash: true})
     ],
@@ -95,7 +97,8 @@ const routes: Routes = [
             provide: HTTP_INTERCEPTORS,
             useClass: CustomHttpInterceptor,
             multi: true
-        }
+        },
+        UserDetailsService
     ],
     bootstrap: [AppComponent]
 })

@@ -15,11 +15,10 @@ import {ActiveGuardService} from "../shared/can-active/auth-guard-service";
 })
 export class AppComponent {
 
-  static userDetailsService = new UserDetailsService();
   static eventService = new EventService();
   static langService = new LangService();
 
-  constructor(private _loginService: LoginService, private _activeGuardService: ActiveGuardService) {
+  constructor(private _loginService: LoginService, private _activeGuardService: ActiveGuardService,private _userDetails:UserDetailsService) {
     this.checkLogin();
   }
 
@@ -29,11 +28,11 @@ export class AppComponent {
         this.getPrincipal();
       }
       else {
-        AppComponent.userDetailsService.logout();
+        this._userDetails.logout();
         localStorage.clear();
       }
     }, error => {
-      AppComponent.userDetailsService.logout();
+      this._userDetails.logout();
       localStorage.clear();
     });
   }
@@ -41,7 +40,7 @@ export class AppComponent {
   getPrincipal() {
     if (!isNull(localStorage.getItem("login")) && localStorage.getItem("login")) {
       this._loginService.getPrincipal().subscribe(next => {
-        AppComponent.userDetailsService.login(next);
+        this._userDetails.login(next);
       });
     }
   }

@@ -1,40 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {Url} from "../../shared/config/url";
-import {Headers, Http, RequestOptions} from "@angular/http";
-import {User} from "../../shared/models/user";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
 
 @Injectable()
 export class LoginService {
 
-  constructor(private _http: Http) {
+  constructor(private _http: HttpClient) {
   }
 
-  login(name: string, password: string): Observable<Response> {
-    let headers = new Headers({
-      'authorization': 'Basic ' + btoa(name + ':' + password),
-      'X-Requested-With': 'XMLHttpRequest'
-    });
-
-    let options = new RequestOptions({headers: headers});
-
-    return this
-      ._http
-      .options(Url.url + "/", options)
-      .catch((error) => Observable.throw(error));
+  login(name: string, password: string): Observable<any> {
+    return this._http.post('/oauth/token', null, {
+      params: new HttpParams()
+        .set('username', name)
+        .set('password', password)
+        .set('grant_type', 'password')
+    }).catch(error => Observable.throw(error));
   }
-
-  getPrincipal():Observable<User>{
-    let headers = new Headers({
-    });
-
-    let options = new RequestOptions({headers: headers});
-
-    return this
-      ._http
-      .get(Url.url + "/user/getUserByPrincipal", options).map(res=>res.json())
-      .catch((error) => Observable.throw(error));
-
-  }
-
 }

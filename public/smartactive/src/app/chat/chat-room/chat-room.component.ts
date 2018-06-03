@@ -6,6 +6,7 @@ import {User} from "../../../shared/models/user";
 import {AppComponent} from "../../app.component";
 import {$WebSocket} from "angular2-websocket/angular2-websocket";
 import {Url} from "../../../shared/config/url";
+import {UserDetailsService} from "../../../shared/service/user-details-service";
 
 @Component({
   selector: 'app-chat-room',
@@ -21,14 +22,14 @@ export class ChatRoomComponent implements OnInit {
   lang: string;
 
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,private _userDetails:UserDetailsService) {
     this.lang = AppComponent.langService.slang;
     AppComponent.langService._lang$.subscribe(next => {
       this.lang = next;
     });
     this.ws = new $WebSocket(Url.ws +"/websocket-chat");
-    this.user = AppComponent.userDetailsService.user;
-    AppComponent.userDetailsService._user$.subscribe(next => {
+    this.user = this._userDetails.user;
+    this._userDetails.user$.subscribe(next => {
       this.user = next;
     });
 
@@ -45,7 +46,7 @@ export class ChatRoomComponent implements OnInit {
   test() {
     let user = new User();
     user.name = "admin";
-    AppComponent.userDetailsService.login(user);
+    this._userDetails.login(user);
     for (let i = 0; i < 20; i++) {
       let m = new Message();
       m.date = "date" + i;

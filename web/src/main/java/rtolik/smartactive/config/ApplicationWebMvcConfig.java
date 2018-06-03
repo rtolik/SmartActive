@@ -19,7 +19,6 @@ import javax.servlet.MultipartConfigElement;
 
 
 @Configuration
-@EnableSwagger2
 @ComponentScan("rtolik.smartactive")
 public class ApplicationWebMvcConfig extends WebMvcConfigurerAdapter {
     private static final String SWAGGER_API_VERSION = "1.0";
@@ -30,9 +29,9 @@ public class ApplicationWebMvcConfig extends WebMvcConfigurerAdapter {
 
     String rootPath = System.getProperty("catalina.home");
     String[] PATH = {
-            "file:/" + rootPath + "/public/mplus.hackathon/dist",
-            "file:/" + rootPath + "/resources/hakathon/"
-
+            "file:/" + rootPath + "/public/rtolik.smartactive/dist",
+            "file:/" + rootPath + "/resources/smartactive/",
+            "file:/" + rootPath + "/res/"
     };
 
 
@@ -53,9 +52,24 @@ public class ApplicationWebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/*").allowedOrigins("*").allowedMethods("GET", "POST", "OPTIONS", "PUT")
-                .allowedHeaders("Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method",
-                        "Access-Control-Request-Headers")
+        registry.addMapping("/*")
+                .allowedOrigins("*")
+                .allowedMethods(
+                        "GET",
+                        "POST",
+                        "OPTIONS",
+                        "PUT",
+                        "DELETE"
+                )
+                .allowedHeaders(
+                        "Content-Type",
+                        "X-Requested-With",
+                        "accept",
+                        "Origin",
+                        "Access-Control-Request-Method",
+                        "Access-Control-Allow-Origin",
+                        "Access-Control-Request-Headers"
+                )
                 .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
                 .allowCredentials(true).maxAge(3600);
     }

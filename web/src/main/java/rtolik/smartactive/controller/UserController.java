@@ -161,4 +161,9 @@ public class UserController {
 
         return new ResponseEntity<>(userService.findByName(name),HttpStatus.OK);
     }
+
+    @GetMapping()
+    private ResponseEntity<User> getUser(Principal principal){
+        return ResponseEntity.ok(userService.findByName(principal.getName()));
+    }
 }

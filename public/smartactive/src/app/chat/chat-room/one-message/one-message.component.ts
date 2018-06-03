@@ -3,6 +3,7 @@ import {Message} from "../../../../shared/models/message";
 import {User} from "../../../../shared/models/user";
 import {AppComponent} from "../../../app.component";
 import {OneMessageService} from "./one-message.service";
+import {UserDetailsService} from "../../../../shared/service/user-details-service";
 
 @Component({
   selector: 'app-one-message',
@@ -18,7 +19,7 @@ export class OneMessageComponent implements OnInit {
 
   color: string;
 
-  constructor(private _oneMessageService: OneMessageService) {
+  constructor(private _oneMessageService: OneMessageService,private _userDetails:UserDetailsService) {
 
 
 
@@ -26,8 +27,8 @@ export class OneMessageComponent implements OnInit {
     AppComponent.langService._lang$.subscribe(next => {
       this.lang = next;
     });
-    this.user = AppComponent.userDetailsService.user;
-    AppComponent.userDetailsService._user$.subscribe(next => {
+    this.user = this._userDetails.user;
+    this._userDetails.user$.subscribe(next => {
       this.user = next;
     });
   }
