@@ -1,0 +1,14 @@
+  <router-outlet></router-outlet>
+<div class="main_list">
+  <div class="bread_crumbs">
+    <a [routerLink]="'/'" class="bread_home">{lang, select, ua{Головна} ru {Главная}}</a>
+    <span class="active_bread_crumbs">{lang, select, ua{Категорія} ru {Категория}}</span>
+  </div>
+  <div class="event_list_container">
+    <app-event-list-one-element *ngFor="let one of usagesList" [usage]="one"></app-event-list-one-element>
+  </div>
+  <div class="filter_component">
+    <app-filter></app-filter>
+  </div>
+  <a class="chat" [routerLink]="'/chat'">Чат</a>
+</div>

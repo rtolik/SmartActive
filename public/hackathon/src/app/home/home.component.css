@@ -1,9 +1,0 @@
-.home {
-  width: 100vw;
-  height: auto;
-  overflow-x: hidden;
-  min-height: 100vh;
-  /*background: linear-gradient(to right, #cccccc, #ffffff, #cccccc);*/
-  background: url("../../assets/images/main_back.jpg");
-  background-size: cover;
-}

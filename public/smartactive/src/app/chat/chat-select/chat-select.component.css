@@ -1,0 +1,112 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  /*background: url("../../../assets/images/main_backg.jpg");*/
+  background-size: cover;
+  background: url("../../../assets/images/main_back.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.index_content {
+  width: 30vw;
+  background: rgba(0,0,0,.5);
+  padding: 5vh 1vw;
+  border-radius: 10px;
+}
+.index_content select {
+  display: block;
+  width: 90%;
+  margin: auto;
+  background: #ffffff;
+  padding: 1vh 1vw;
+  font-size: 1.2vw;
+  border-radius: 20px;
+}
+.index_text {
+  width: 80%;
+  color: #ffffff;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 3vh;
+  font-size: 1.2vw;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px){
+  .container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    /*background: url("../../../assets/images/main_backg.jpg");*/
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .index_content {
+    width: 96vw;
+    height: 90vh;
+    background: rgba(0,0,0,.5);
+    padding: 0 1vw;
+    border-radius: 10px;
+  }
+  .index_content select {
+    display: block;
+    width: 90%;
+    margin: auto;
+    background: #ffffff;
+    padding: 1vh 1vw;
+    font-size: 1rem;
+    border-radius: 20px;
+  }
+  .index_text {
+    width: 80%;
+    color: #ffffff;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 3vh;
+    font-size: 1rem;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 988px){
+  .container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    /*background: url("../../../assets/images/main_backg.jpg");*/
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .index_content {
+    width: 96vw;
+    height: 90vh;
+    background: rgba(0,0,0,.5);
+    padding: 0 1vw;
+    border-radius: 10px;
+  }
+  .index_content select {
+    display: block;
+    width: 90%;
+    margin: auto;
+    background: #ffffff;
+    padding: 1vh 1vw;
+    font-size: 2rem;
+    border-radius: 20px;
+  }
+  .index_content select option {
+    display: block;
+    width: 90%;
+    overflow: hidden;
+  }
+  .index_text {
+    width: 80%;
+    color: #ffffff;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 3vh;
+    font-size: 2rem;
+  }
+}

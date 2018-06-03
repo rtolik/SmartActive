@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>m-plus</groupId>
-	<artifactId>hackathon</artifactId>
+	<groupId>rtolik</groupId>
+	<artifactId>smart-active</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>web</module>
@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.3.3.RELEASE</version>
+		<version>1.5.9.RELEASE</version>
 		<relativePath/>
 	</parent>
 
@@ -27,7 +27,7 @@
 		<java.version>1.8</java.version>
 		<maven-war-plugin.version>2.6</maven-war-plugin.version>
 		<maven-surefire-plugin>2.19.1</maven-surefire-plugin>
-		<version.spring.boot>1.3.6.RELEASE</version.spring.boot>
+		<version.spring.boot>1.5.9.RELEASE</version.spring.boot>
 		<version.mysql.connector>6.0.5</version.mysql.connector>
 		<version.slf4j>1.7.21</version.slf4j>
 	</properties>
@@ -63,19 +63,15 @@
 	<build>
 		<finalName>ROOT</finalName>
 		<plugins>
-
-
 			<plugin>
-
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>1.3.3.RELEASE</version>
+				<version>1.5.9.RELEASE</version>
 				<configuration>
-					<mainClass>mplus.hackathon.Application</mainClass>
-					<layout>JAR</layout>
+					<mainClass>rtolik.smartactive.Application</mainClass>
+					<layout>WAR</layout>
 				</configuration>
 				<executions>
-
 					<execution>
 						<goals>
 							<goal>repackage</goal>
@@ -83,7 +79,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>

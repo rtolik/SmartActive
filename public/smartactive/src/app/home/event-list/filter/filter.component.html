@@ -1,0 +1,9 @@
+<router-outlet></router-outlet>
+<div class="filter_content" #filter>
+  <div class="index_content">
+    <span class="title">{lang, select, ua{Фільтр} ru {Фильтр}}</span>
+    <span class="close_filter" (click)="hideFilter()">x</span>
+  </div>
+  <app-filter-one *ngFor="let one of category" [category]="one"></app-filter-one>
+</div>
+<div class="rotate_btn_filter" (click)="showFilter()" #btnFilter>{lang, select, ua{Фільтри} ru {Фильтры}}</div>

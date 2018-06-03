@@ -23,5 +23,5 @@ dist/
 nbdist/
 .nb-gradle/
 
-/public/hackathon/node_modules/
-/public/hackathon/node/
+node_modules/
+node/

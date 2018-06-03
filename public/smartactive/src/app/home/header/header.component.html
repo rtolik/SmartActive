@@ -1,0 +1,12 @@
+<header class="main_header">
+  <img class="logo" src="../../../assets/images/logo.png" alt="Logotype">
+  <h1 [routerLink]="'/'">Smart Active</h1>
+  <div class="right_content">
+    <a *ngIf="auth" [routerLink]="'/cabinet/settings'" class="user">user</a>
+    <a *ngIf="!auth" [routerLink]="'/login'" class="user">login</a>
+    <div class="lang_change">
+      <a (click)="changeLang('ua')" #uaID>УКР</a>
+      <a (click)="changeLang('ru')" #ruID>РУС</a>
+    </div>
+  </div>
+</header>

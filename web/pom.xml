@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>hackathon</artifactId>
-        <groupId>m-plus</groupId>
+        <artifactId>smart-active</artifactId>
+        <groupId>rtolik</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -17,6 +17,12 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!--web socket-->
@@ -68,7 +74,7 @@
 
 
         <dependency>
-            <groupId>m-plus</groupId>
+            <groupId>rtolik</groupId>
             <artifactId>public</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
@@ -113,7 +119,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <version>1.5.2.RELEASE</version>
+            <version>1.5.9.RELEASE</version>
         </dependency>
 
 

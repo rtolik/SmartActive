@@ -1,0 +1,11 @@
+<router-outlet></router-outlet>
+<div class="container">
+  <a [routerLink]="'/home'" title="Головна">Головна</a>
+  <div class="index_content">
+    <app-one-message *ngFor="let one of categoryMessage.messages" [message]="one"></app-one-message>
+  </div>
+  <div class="send_block">
+    <textarea #idText (keydown.alt.Enter)="send(idText)"></textarea>
+    <button class="send" (click)="send(idText)">Відправити</button>
+  </div>
+</div>
