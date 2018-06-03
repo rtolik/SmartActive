@@ -1,19 +1,16 @@
 package rtolik.smartactive.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import rtolik.smartactive.config.websocket.ChatHandler;
 import rtolik.smartactive.config.websocket.utils.model.CategoryMessage;
 import rtolik.smartactive.models.Opportunities;
 import rtolik.smartactive.models.enums.Status;
 import rtolik.smartactive.service.OpportunitiesService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.Arrays;
@@ -31,132 +28,114 @@ public class OpportunitiesController {
     @Autowired
     private OpportunitiesService opportunitiesService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
-    private ResponseEntity<Opportunities> add(@RequestParam String opportunity,@RequestParam MultipartFile multipartFile,Principal principal){
-        Opportunities opportunities = opportunitiesService.createOpportunities(opportunity,multipartFile,principal);
-        if(ChatHandler.categoryMessages.stream().noneMatch(categoryMessage ->
+    @PostMapping("/add")
+    private ResponseEntity<Opportunities> add(@RequestParam String opportunity, @RequestParam MultipartFile multipartFile, Principal principal) {
+        Opportunities opportunities = opportunitiesService.createOpportunities(opportunity, multipartFile, principal);
+        if (ChatHandler.categoryMessages.stream().noneMatch(categoryMessage ->
                 categoryMessage.getId().equals(opportunities.getCategory().getId())))
             ChatHandler.categoryMessages.add(new CategoryMessage(opportunities.getCategory()));
-        return  new ResponseEntity<>(opportunities,HttpStatus.OK);
+        return new ResponseEntity<>(opportunities, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findOne",method = RequestMethod.GET)
-    private ResponseEntity<Opportunities> findOne(@RequestParam(required = false) Integer id){
-        if(id == null)
-        {
+    @GetMapping("/findOne/{id}")
+    private ResponseEntity<Opportunities> findOne(@PathVariable Integer id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return  new ResponseEntity<>(opportunitiesService.findOne(id),HttpStatus.OK);
+        return new ResponseEntity<>(opportunitiesService.findOne(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
-    private ResponseEntity<List<Opportunities>> findAll(){
-
-        if(opportunitiesService.findAll()==null)
-        {
+    @GetMapping("/findAll")
+    private ResponseEntity<List<Opportunities>> findAll() {
+        if (opportunitiesService.findAll() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(opportunitiesService.findAll(),HttpStatus.OK);
+        return new ResponseEntity<>(opportunitiesService.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findAllActive",method = RequestMethod.GET)
-    private ResponseEntity<List<Opportunities>> findAllActive(){
-
-        List<Opportunities> opportunities =opportunitiesService.findAllActive();
-        if(opportunities ==null)
-        {
+    @GetMapping("/findAllActive")
+    private ResponseEntity<List<Opportunities>> findAllActive() {
+        List<Opportunities> opportunities = opportunitiesService.findAllActive();
+        if (opportunities == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(opportunities,HttpStatus.OK);
+        return new ResponseEntity<>(opportunities, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findByUser",method = RequestMethod.GET)
-    private ResponseEntity<List<Opportunities>> findByUser(Principal principal){
-
-        if(opportunitiesService.findAll()==null)
-        {
+    @GetMapping("/findByUser")
+    private ResponseEntity<List<Opportunities>> findByUser(Principal principal) {
+        if (opportunitiesService.findAll() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(opportunitiesService.findByUser(principal),HttpStatus.OK);
+        return new ResponseEntity<>(opportunitiesService.findByUser(principal), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/searchByKeywords",method = RequestMethod.POST)
-    private ResponseEntity<List<Opportunities>> findByKeywords(@RequestParam(required = false) String keywords){
-        if(keywords == null)
-        {
+    @GetMapping("/searchByKeywords")
+    private ResponseEntity<List<Opportunities>> findByKeywords(@RequestParam String keywords) {
+        if (keywords == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(opportunitiesService.searchByWord(keywords),HttpStatus.OK);
+        return new ResponseEntity<>(opportunitiesService.searchByWord(keywords), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/saveToUser",method = RequestMethod.POST)
-    private ResponseEntity saveToUser(@RequestParam(required = false)Principal principal,
-                                      @RequestParam(required = false) Integer id){
-        if(id==null)
-        {
+    @PostMapping("/saveToUser/{id}")
+    private ResponseEntity saveToUser(Principal principal,
+                                      @PathVariable Integer id) {
+        if (id == null) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
-        opportunitiesService.saveOpportunitiesToUser(principal,id);
+        opportunitiesService.saveOpportunitiesToUser(principal, id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findAllInCategory",method = RequestMethod.GET)
-    private ResponseEntity<List<Opportunities>> findAllInCategory(@RequestParam(required = false) Integer id){
-        if(id == null)
-        {
+    @GetMapping("/findAllInCategory/{id}")
+    private ResponseEntity<List<Opportunities>> findAllInCategory(@PathVariable Integer id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return  new ResponseEntity<>(opportunitiesService.findAllByCategory(id),HttpStatus.OK);
+        return new ResponseEntity<>(opportunitiesService.findAllByCategory(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/setActive",method = RequestMethod.GET)
-    private ResponseEntity setActive(@RequestParam(required = false) Boolean activity,
-                                     @RequestParam(required = false) Principal principal,
-                                     @RequestParam(required = false) Integer id)
-    {
-        if(activity==null || principal==null || id ==null)
-        {
+    @PostMapping("/setActive/{id}")
+    private ResponseEntity setActive(@RequestParam Boolean activity, Principal principal,
+                                     @PathVariable Integer id) {
+        if (activity == null || principal == null || id == null) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
-        opportunitiesService.setActive(activity,principal,id);
+        opportunitiesService.setActive(activity, principal, id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping("/findByPrice")
-    private ResponseEntity<List<Opportunities>> findByPrice(@RequestParam(required = false) Double price){
-        if(price==null)
-        {
-            return new ResponseEntity<List<Opportunities>>(HttpStatus.NO_CONTENT);
+    @GetMapping("/findByPrice")
+    private ResponseEntity<List<Opportunities>> findByPrice(@RequestParam Double price) {
+        if (price == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<Opportunities>>(opportunitiesService.findByMaxPrice(price),HttpStatus.OK);
+        return new ResponseEntity<>(opportunitiesService.findByMaxPrice(price), HttpStatus.OK);
     }
 
-    @RequestMapping("/multipleFilter")
+    @GetMapping("/multipleFilter")
     private ResponseEntity<List<Opportunities>> multipleFilter(@RequestParam(required = false) Double maxPrice,
                                                                @RequestParam(required = false) Integer categoryId,
-                                                               @RequestParam(required = false) String keywords){
-        if(maxPrice==null&& categoryId==null&&keywords==null)
-        {
-            return  new ResponseEntity<List<Opportunities>>(HttpStatus.NO_CONTENT);
+                                                               @RequestParam(required = false) String keywords) {
+        if (maxPrice == null && categoryId == null && keywords == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        List<Opportunities> filterlist=opportunitiesService.findAll();
-        if(maxPrice!=null)
-        {
-            filterlist=opportunitiesService.filterListByMaxPrice(filterlist,maxPrice);
+        List<Opportunities> filterlist = opportunitiesService.findAll();
+        if (maxPrice != null) {
+            filterlist = opportunitiesService.filterListByMaxPrice(filterlist, maxPrice);
         }
-        if (categoryId!=null)
-        {
-            filterlist=opportunitiesService.filterListByCategory(filterlist,categoryId);
+        if (categoryId != null) {
+            filterlist = opportunitiesService.filterListByCategory(filterlist, categoryId);
         }
-        if(keywords!=null)
-        {
-            filterlist=opportunitiesService.filterListByKeywords(filterlist,keywords);
+        if (keywords != null) {
+            filterlist = opportunitiesService.filterListByKeywords(filterlist, keywords);
         }
-        return new ResponseEntity<List<Opportunities>>(filterlist,HttpStatus.OK);
+        return new ResponseEntity<>(filterlist, HttpStatus.OK);
     }
 
-    @RequestMapping("/loadStatuses")
-    public ResponseEntity<List<Status>>loadStatuses(){
+    @GetMapping("/loadStatuses")
+    public ResponseEntity<List<Status>> loadStatuses() {
         return new ResponseEntity<>(Arrays.stream(Status.values())
                 .collect(toList()), HttpStatus.OK);
     }
