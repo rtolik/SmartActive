@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
+import static rtolik.smartactive.service.utils.Utility.getUnbanDate;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -155,5 +156,19 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void scheduledUnban() {
+        List<User> users = userRepository.findAll().stream()
+                .filter(
+                        user -> !user.getActive()&&user.getBansCount()>0
+                ).collect(toList());
+        users.forEach(
+                user -> {
+                    if (getUnbanDate(user.getDateOfban()).equals(LocalDate.now().toString()))
+                        save(user.setActive(true).setNumOfAppeals(0));
+                }
+        );
     }
 }

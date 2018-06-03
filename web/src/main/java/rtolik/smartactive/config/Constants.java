@@ -9,6 +9,7 @@ public class Constants {
     public static final String EMAIL_LOGIN="anazariks@gmail.com";
     public static final String EMAIL_PASSWORD="nbhfyjpfdh1998";
     public static final String LINK="http://localhost:8080/";
+    public static final Integer BANNING_DAYS=7;
 
     public  static  String MAIL_BODY=" <!doctype html>\n" +
             "    <html lang=\"en\">\n" +

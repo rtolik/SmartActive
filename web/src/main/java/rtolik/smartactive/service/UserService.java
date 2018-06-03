@@ -27,6 +27,8 @@ public interface UserService {
 
     void appeal(String name);
 
+    void scheduledUnban();
+
     Boolean login(String name, String password);
 
     User findByName(String name);
