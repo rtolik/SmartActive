@@ -138,7 +138,7 @@ public class UserController {
 
     @RequestMapping(value = "/ban",method = RequestMethod.POST)
     private ResponseEntity ban(@RequestParam String name) {
-        userService.ban(name,false);
+        userService.appeal(name);
         return new ResponseEntity(HttpStatus.OK);
     }
 

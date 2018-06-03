@@ -25,10 +25,7 @@ public interface UserService {
 
     void ban(Integer id);
 
-    void appeal(Integer id);
-
-
-    void appealByName(String name);
+    void appeal(String name);
 
     Boolean login(String name, String password);
 

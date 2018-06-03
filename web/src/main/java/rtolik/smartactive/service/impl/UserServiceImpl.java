@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
             saveUser(user.setBansCount(user.getBansCount() - 1).setActive(false)
                     .setDateOfban(LocalDate.now().toString()));
         } else {
-            saveUser(user.setBansCount(5).setActive(false).setDateOfban(LocalDate.now().toString()));
+            saveUser(user.setBansCount(0).setActive(false).setDateOfban(LocalDate.now().toString()));
         }
 
     }
@@ -126,19 +126,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void appeal(Integer id) {//TODO write method to ban for time
-        User user=findOne(id).setNumOfAppeals(findOne(id).getNumOfAppeals() + 1);
+    public void appeal(String name) {
+        User user=findByName(name);
+        user.setNumOfAppeals(user.getNumOfAppeals() + 1);
         if (user.getNumOfAppeals()>=5) {
             user.setNumOfAppeals(0);
-            ban();
+            ban(user.getId());
         }
         save(user);
-    }
-
-
-    @Override
-    public void appealByName(String name) {
-        appeal(findByName(name).getId());
     }
 
     @Override
