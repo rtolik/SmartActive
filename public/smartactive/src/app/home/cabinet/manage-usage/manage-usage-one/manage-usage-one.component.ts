@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Usage} from "../../../../../environments/models/usage";
+import {Usage} from "../../../../../shared/models/usage";
 import {MenageUsageService} from "../manage-usage.service";
 
 @Component({

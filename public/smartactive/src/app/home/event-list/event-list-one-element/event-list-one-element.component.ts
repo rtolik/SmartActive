@@ -1,8 +1,8 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
-import {Usage} from "../../../../environments/models/usage";
+import {Usage} from "../../../../shared/models/usage";
 import {AppComponent} from "../../../app.component";
-import {Url} from "../../../../environments/url";
-import {RateService} from "../../../../shared/services/rate.service";
+import {Url} from "../../../../shared/config/url";
+import {RateService} from "../../../../shared/service/rate.service";
 import {EventOneService} from "../../event-one/event-one.service";
 
 

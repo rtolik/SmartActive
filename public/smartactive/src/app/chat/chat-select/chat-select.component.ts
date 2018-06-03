@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Category} from "../../../environments/models/category";
+import {Category} from "../../../shared/models/category";
 import {MainService} from "../../home/main/main.service";
 import {Router} from "@angular/router";
 

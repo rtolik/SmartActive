@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
-import {Category} from "../../../../../environments/models/category";
+import {Category} from "../../../../../shared/models/category";
 import {AppComponent} from "../../../../app.component";
 
 @Component({

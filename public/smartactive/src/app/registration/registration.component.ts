@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {RegistrationService} from "./registration.service";
 import * as ts from "typescript/lib/tsserverlibrary";
 import {Router} from "@angular/router";
-import {User} from "../../environments/models/user";
+import {User} from "../../shared/models/user";
 import {AppComponent} from "../app.component";
 import toSortedReadonlyArray = ts.server.toSortedReadonlyArray;
 

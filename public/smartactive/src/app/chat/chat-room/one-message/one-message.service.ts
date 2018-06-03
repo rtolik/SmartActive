@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {Http, Headers, RequestOptions} from "@angular/http";
-import {Url} from "../../../../environments/url";
-import {User} from "../../../../environments/models/user";
+import {Url} from "../../../../shared/config/url";
+import {User} from "../../../../shared/models/user";
 
 @Injectable()
 export class OneMessageService {

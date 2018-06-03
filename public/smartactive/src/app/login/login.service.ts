@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {Url} from "../../environments/url";
+import {Url} from "../../shared/config/url";
 import {Headers, Http, RequestOptions} from "@angular/http";
-import {User} from "../../environments/models/user";
+import {User} from "../../shared/models/user";
 
 @Injectable()
 export class LoginService {

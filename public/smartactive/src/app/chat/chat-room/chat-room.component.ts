@@ -1,11 +1,11 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {CategoryMessage} from "../../../environments/models/category-message";
-import {Message} from "../../../environments/models/message";
-import {User} from "../../../environments/models/user";
+import {CategoryMessage} from "../../../shared/models/category-message";
+import {Message} from "../../../shared/models/message";
+import {User} from "../../../shared/models/user";
 import {AppComponent} from "../../app.component";
 import {$WebSocket} from "angular2-websocket/angular2-websocket";
-import {Url} from "../../../environments/url";
+import {Url} from "../../../shared/config/url";
 
 @Component({
   selector: 'app-chat-room',

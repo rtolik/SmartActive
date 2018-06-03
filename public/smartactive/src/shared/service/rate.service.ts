@@ -1,7 +1,7 @@
 import {Http} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
-import {Url} from "../../environments/url";
+import {Url} from "../config/url";
 import {HttpParams} from "@angular/common/http";
 /**
  * Created by Anatoliy on 26.05.2018.

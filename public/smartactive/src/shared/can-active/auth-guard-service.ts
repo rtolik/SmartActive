@@ -5,7 +5,7 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
-import {Url} from "../../url";
+import {Url} from "../config/url";
 
 @Injectable()
 export class ActiveGuardService{

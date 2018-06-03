@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import rtolik.smartactive.models.enums.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,28 +21,20 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(columnDefinition = "VARCHAR(50)")
     private String name;
-
     private String password;
-
     @Column(columnDefinition = "VARCHAR(100)")
     private String email;
-
     @Column(columnDefinition = "VARCHAR(7)")
     private String color;
-
     private Boolean isActive;
-
     private Integer numOfAppeals;
-
     private Integer bansCount;
-
     private String phone;
+    private Role role;
     @JsonIgnore
     private String uuid;
-
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Opportunities> services;
@@ -174,7 +167,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        //TODO
+        authorities.add(new SimpleGrantedAuthority(role.toString()));
         return authorities;
     }
 
