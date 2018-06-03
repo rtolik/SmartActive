@@ -107,6 +107,15 @@ import java.util.List;
         return this;
     }
 
+    public Double getRating() {
+        return rating;
+    }
+
+    public Opportunities setRating(Double rating) {
+        this.rating = rating;
+        return this;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -138,16 +147,8 @@ import java.util.List;
         return user;
     }
 
-    public void setUser(User user) {
+    public Opportunities setUser(User user) {
         this.user = user;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public Opportunities setRating(Double rating) {
-        this.rating = rating;
         return this;
     }
 

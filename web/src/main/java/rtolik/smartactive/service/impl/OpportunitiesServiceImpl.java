@@ -1,18 +1,16 @@
 package rtolik.smartactive.service.impl;
 
-import rtolik.smartactive.models.Category;
 import rtolik.smartactive.models.Opportunities;
 import rtolik.smartactive.models.Rate;
 import rtolik.smartactive.models.enums.Status;
-import rtolik.smartactive.repository.CategoryRepository;
 import rtolik.smartactive.repository.OpportunitiesRepository;
-import rtolik.smartactive.repository.RateRepository;
-import rtolik.smartactive.repository.UserRepository;
 import rtolik.smartactive.service.CategoryService;
 import rtolik.smartactive.service.OpportunitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import rtolik.smartactive.service.RateService;
+import rtolik.smartactive.service.UserService;
 import rtolik.smartactive.utils.JsonMapper;
 
 import java.io.File;
@@ -31,10 +29,10 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     private OpportunitiesRepository opportunitiesRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private RateRepository rateRepository;
+    private RateService rateService;
 
     @Autowired
     private CategoryService categoryService;
@@ -66,7 +64,7 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
 
     @Override
     public void setActive(Boolean active, Principal principal, Integer opportunityId) {
-        userRepository.findByName(principal.getName()).getServices()
+        userService.findByName(principal.getName()).getServices()
                 .stream()
                 .filter(opportunities -> opportunities.getId().equals(opportunityId))
                 .forEach(opportunities -> {
@@ -114,19 +112,16 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
 
     @Override
     public void saveOpportunitiesToUser(Principal principal, Integer id) {
-        findOne(id).setUser(userRepository.findByName(principal.getName()));
+        findOne(id).setUser(userService.findByName(principal.getName()));
     }
 
     @Override
     public Opportunities createOpportunities(String opportunity, MultipartFile multipartFile, Principal principal) {
         String uuid = UUID.randomUUID().toString();
         Opportunities opportunities = JsonMapper.json(opportunity,Opportunities.class);
-        opportunities.setStatus(Status.PUBLISHED);
-        opportunities.setActive(true);
-        opportunities.setUser(userRepository.findByName(principal.getName()));
-        opportunities.setPhotoPath("/res/file/" + uuid + "/"
-                + multipartFile.getOriginalFilename());
-        opportunities.setCategory(categoryService.findOrCreate(opportunities.getCategory().getName()));
+        opportunities.setStatus(Status.PUBLISHED).setActive(true).setUser(userService.findByName(principal.getName()))
+                     .setPhotoPath("/res/file/" + uuid + "/" + multipartFile.getOriginalFilename())
+                     .setCategory(categoryService.findOrCreate(opportunities.getCategory().getName()));
         String path = System.getProperty("catalina.home") + "/resources/hakathon/file/" + uuid + "/"
                 + multipartFile.getOriginalFilename();
         System.out.println(path);
@@ -137,13 +132,9 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
             multipartFile.transferTo(file);
 
             save(opportunities);
-
-
-
             for (int i=0;i<6;i++) {
-                rateRepository.save(new Rate(i).setOpportunity(opportunities));
+                rateService.save(new Rate(i).setOpportunity(opportunities));
             }
-
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("error with file");
@@ -184,7 +175,7 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     @Override
     public List<Opportunities> findByUser(Principal principal) {
 
-        return userRepository.findByName(principal.getName()).getServices();
+        return userService.findByName(principal.getName()).getServices();
     }
 
 

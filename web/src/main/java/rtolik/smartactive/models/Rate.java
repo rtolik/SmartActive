@@ -31,6 +31,15 @@ public class Rate {
     }
 
 
+    public Integer getId() {
+        return id;
+    }
+
+    public Rate setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public Integer getGrade() {
         return grade;
     }
@@ -56,13 +65,5 @@ public class Rate {
     public Rate setOpportunity(Opportunities opportunity) {
         this.opportunity = opportunity;
         return this;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 }
