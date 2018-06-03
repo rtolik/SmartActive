@@ -13,6 +13,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @ComponentScan("rtolik.smartactive")
@@ -67,7 +72,35 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/node_modules/**").permitAll()
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/oauth/token").permitAll()
-                .and().formLogin().loginPage("/login").permitAll();
+                .and().formLogin().loginPage("/login").permitAll()
+//                .and().cors().configurationSource(corsConfigurationSource())
+        ;
     }
+
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:8080", "http://smartactive.hopto.org"));
+//        configuration.setAllowCredentials(true);
+//        configuration.setAllowedHeaders(Arrays.asList(
+//                "Content-Type",
+//                "X-Requested-With",
+//                "accept",
+//                "Origin",
+//                "Access-Control-Request-Method",
+//                "Access-Control-Allow-Origin",
+//                "Access-Control-Request-Headers"
+//        ));
+//        configuration.setAllowedMethods(Arrays.asList(
+//                "GET",
+//                "POST",
+//                "OPTIONS",
+//                "PUT",
+//                "DELETE"
+//        ));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
 
 }

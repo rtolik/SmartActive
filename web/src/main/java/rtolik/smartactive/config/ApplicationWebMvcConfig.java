@@ -1,13 +1,20 @@
 package rtolik.smartactive.config;
 
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.CacheControl;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.resource.VersionResourceResolver;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -16,80 +23,53 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.MultipartConfigElement;
+import java.util.concurrent.TimeUnit;
 
 
 @Configuration
 @ComponentScan("rtolik.smartactive")
 public class ApplicationWebMvcConfig extends WebMvcConfigurerAdapter {
-    private static final String SWAGGER_API_VERSION = "1.0";
-    private static final String LICENSE_TEXT = "License";
-    private static final String title = "sample";
-    private static final String description = "Documentation for the project";
+    private String rootPath = System.getProperty("catalina.home");
+    private String[] PATH = {
+            "file:/" + rootPath + "/public/smartactive/dist",
+            "classpath:/resources/",
 
-
-    String rootPath = System.getProperty("catalina.home");
-    String[] PATH = {
-            "file:/" + rootPath + "/public/rtolik.smartactive/dist",
-            "file:/" + rootPath + "/resources/smartactive/",
-            "file:/" + rootPath + "/res/"
     };
 
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+
+        final FilterRegistrationBean resolver = new FilterRegistrationBean();
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        resolver.setFilter(characterEncodingFilter);
+        return resolver;
+    }
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/res/**")
-                .addResourceLocations(PATH);
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations(PATH).setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS))
+                .resourceChain(false)
+                .addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
+        registry.addResourceHandler("/file/**")
+                .addResourceLocations("file:/" + rootPath + "/resources/")
+                .setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS))
+                .resourceChain(false)
+                .addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
     }
 
-
-    @Bean
-    public MultipartConfigElement multipartConfigElement() {
-        MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setMaxFileSize("512000MB");
-        factory.setMaxRequestSize("512000MB");
-        return factory.createMultipartConfig();
-    }
 
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/*")
-                .allowedOrigins("*")
-                .allowedMethods(
-                        "GET",
-                        "POST",
-                        "OPTIONS",
-                        "PUT",
-                        "DELETE"
-                )
-                .allowedHeaders(
-                        "Content-Type",
-                        "X-Requested-With",
-                        "accept",
-                        "Origin",
-                        "Access-Control-Request-Method",
-                        "Access-Control-Allow-Origin",
-                        "Access-Control-Request-Headers"
-                )
-                .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
-                .allowCredentials(true).maxAge(3600);
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title(title)
-                .description(description)
-                .license(LICENSE_TEXT)
-                .version(SWAGGER_API_VERSION)
-                .build();
-    }
-    @Bean
-    public Docket decksApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .pathMapping("/")
-                .select()
-                .paths(PathSelectors.any())
-                .build();
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer
+                .defaultContentType(MediaType.APPLICATION_JSON)
+                .favorPathExtension(true);
     }
 
 }
