@@ -32,8 +32,8 @@ public class CategoryController {
         return  new ResponseEntity<>(category,HttpStatus.OK);
     }
 
-    @GetMapping("/findOne")
-    private ResponseEntity<Category> findOne(@RequestParam(required = false) Integer id){
+    @GetMapping("/findOne/[id]")
+    private ResponseEntity<Category> findOne(@PathVariable Integer id){
         if(id == null)
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -68,8 +68,8 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.findCategories(ids),HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
-    private ResponseEntity delete(@RequestParam Integer id){
+    @DeleteMapping("/delete/{id}")
+    private ResponseEntity delete(@PathVariable Integer id){
         categoryService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
