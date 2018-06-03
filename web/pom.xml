@@ -12,19 +12,6 @@
     <artifactId>web</artifactId>
     <packaging>war</packaging>
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!--web socket-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -85,41 +72,40 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+        <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.apache.tomcat.embed</groupId>-->
+        <!--<artifactId>tomcat-embed-jasper</artifactId>-->
+        <!--<scope>provided</scope>-->
+        <!--</dependency>-->
         <!-- To Avoid javax.servlet.ServletException: java.lang.NoSuchMethodError: org.apache.el.lang.ELSupport.coerceToType -->
         <!-- This avoids "tomcat-embed-el-8.0.32.jar" to go in the lib folder -->
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-el</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.tomcat.embed</groupId>-->
+        <!--<artifactId>tomcat-embed-el</artifactId>-->
+        <!--<scope>provided</scope>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>jstl</groupId>-->
+        <!--<artifactId>jstl</artifactId>-->
+        <!--<version>1.2</version>-->
+        <!--</dependency>-->
         <!-- Test -->
         <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <scope>test</scope>
-    </dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- spring-boot-starter-security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <version>1.5.9.RELEASE</version>
         </dependency>
 
 
@@ -159,26 +145,27 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf -->
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>3.0.6.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>m-plus</groupId>
-            <artifactId>public</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.thymeleaf</groupId>-->
+        <!--<artifactId>thymeleaf</artifactId>-->
+        <!--<version>3.0.6.RELEASE</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
-            <version>2.0.14.RELEASE</version>
         </dependency>
-
-
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-jwt -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
     </dependencies>
     <build>
-        <finalName>Hakathon</finalName>
+        <finalName>SmartActive</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
