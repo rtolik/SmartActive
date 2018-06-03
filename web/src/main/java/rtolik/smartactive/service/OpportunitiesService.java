@@ -26,8 +26,8 @@ public interface OpportunitiesService {
 
     void saveOpportunitiesToUser(Principal principal,Integer id);
 
-    Opportunities createOpportunities(String name, String offerDescription,
-                                      MultipartFile multipartFile, Double price, String category,Principal principal);
+    Opportunities createOpportunities(String opportunity,
+                                      MultipartFile multipartFile, Principal principal);
 
     List<Opportunities> findByMaxPrice(Double maxPrice);
 

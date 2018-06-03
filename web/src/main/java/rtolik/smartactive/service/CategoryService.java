@@ -17,4 +17,6 @@ public interface CategoryService {
     List<Category> findCategories(List<Integer> idList);
 
     List<String> filterByWord(String word);
+
+    Category findOrCreate(String name);
 }

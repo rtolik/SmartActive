@@ -32,20 +32,10 @@ public class OpportunitiesController {
     private OpportunitiesService opportunitiesService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    private ResponseEntity<Opportunities> add(@RequestParam(required = false) String name,
-                                              @RequestParam(required = false) String offerDescription,
-                                              @RequestParam(required = false) String category,
-                                              @RequestParam(required = false) MultipartFile multipartFile,
-                                              @RequestParam(required = false) Double price,
-                                              Principal principal){
-        if(name == null || category == null)
-        {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        Opportunities opportunities = opportunitiesService.createOpportunities(name,offerDescription,
-                multipartFile, price, category,principal);
-        if(!ChatHandler.categoryMessages.stream().anyMatch(categoryMessage ->
-                categoryMessage.getId().equals(opportunities.getCategory().getId()+"")))
+    private ResponseEntity<Opportunities> add(@RequestParam String opportunity,@RequestParam MultipartFile multipartFile,Principal principal){
+        Opportunities opportunities = opportunitiesService.createOpportunities(opportunity,multipartFile,principal);
+        if(ChatHandler.categoryMessages.stream().noneMatch(categoryMessage ->
+                categoryMessage.getId().equals(opportunities.getCategory().getId())))
             ChatHandler.categoryMessages.add(new CategoryMessage(opportunities.getCategory()));
         return  new ResponseEntity<>(opportunities,HttpStatus.OK);
     }

@@ -8,10 +8,12 @@ import rtolik.smartactive.repository.CategoryRepository;
 import rtolik.smartactive.repository.OpportunitiesRepository;
 import rtolik.smartactive.repository.RateRepository;
 import rtolik.smartactive.repository.UserRepository;
+import rtolik.smartactive.service.CategoryService;
 import rtolik.smartactive.service.OpportunitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import rtolik.smartactive.utils.JsonMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     private RateRepository rateRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @Override
     public Opportunities save(Opportunities service) {
@@ -116,24 +118,15 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     }
 
     @Override
-    public Opportunities createOpportunities(String name, String offerDescription, MultipartFile multipartFile, Double price, String category,Principal principal) {
-
+    public Opportunities createOpportunities(String opportunity, MultipartFile multipartFile, Principal principal) {
         String uuid = UUID.randomUUID().toString();
-        Opportunities opportunities = new Opportunities();
-        opportunities.setName(name);
-        opportunities.setOfferDescription(offerDescription);
-        opportunities.setPrice(price);
+        Opportunities opportunities = JsonMapper.json(opportunity,Opportunities.class);
         opportunities.setStatus(Status.PUBLISHED);
         opportunities.setActive(true);
         opportunities.setUser(userRepository.findByName(principal.getName()));
         opportunities.setPhotoPath("/res/file/" + uuid + "/"
                 + multipartFile.getOriginalFilename());
-        opportunities.setCategory((categoryRepository.findAll().stream().anyMatch(category1 ->
-                category1.getName().toLowerCase().equals(category.toLowerCase()))) ?
-                categoryRepository.findAll().stream().filter(category1 -> category1.getName().toLowerCase()
-                        .equals(category.toLowerCase())).findFirst().get() : categoryRepository.save(new Category()
-                .setName(category)));
-
+        opportunities.setCategory(categoryService.findOrCreate(opportunities.getCategory().getName()));
         String path = System.getProperty("catalina.home") + "/resources/hakathon/file/" + uuid + "/"
                 + multipartFile.getOriginalFilename();
         System.out.println(path);
