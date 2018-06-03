@@ -1,18 +1,16 @@
 package rtolik.smartactive.service.impl;
 
-import rtolik.smartactive.models.Category;
-import rtolik.smartactive.models.Opportunities;
-import rtolik.smartactive.models.Rate;
-import rtolik.smartactive.models.enums.Status;
-import rtolik.smartactive.repository.CategoryRepository;
-import rtolik.smartactive.repository.OpportunitiesRepository;
-import rtolik.smartactive.repository.RateRepository;
-import rtolik.smartactive.repository.UserRepository;
-import rtolik.smartactive.service.CategoryService;
-import rtolik.smartactive.service.OpportunitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import rtolik.smartactive.models.Opportunities;
+import rtolik.smartactive.models.Rate;
+import rtolik.smartactive.models.enums.Status;
+import rtolik.smartactive.repository.OpportunitiesRepository;
+import rtolik.smartactive.service.CategoryService;
+import rtolik.smartactive.service.OpportunitiesService;
+import rtolik.smartactive.service.RateService;
+import rtolik.smartactive.service.UserService;
 import rtolik.smartactive.utils.JsonMapper;
 
 import java.io.File;
@@ -29,13 +27,10 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
 
     @Autowired
     private OpportunitiesRepository opportunitiesRepository;
-
     @Autowired
-    private UserRepository userRepository;
-
+    private UserService userService;
     @Autowired
-    private RateRepository rateRepository;
-
+    private RateService rateService;
     @Autowired
     private CategoryService categoryService;
 
@@ -60,70 +55,66 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     }
 
     @Override
-    public void delete(Integer id) {
-        opportunitiesRepository.delete(id);
+    public Boolean delete(Integer id) {
+        try {
+            opportunitiesRepository.delete(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public void setActive(Boolean active, Principal principal, Integer opportunityId) {
-        userRepository.findByName(principal.getName()).getServices()
-                .stream()
-                .filter(opportunities -> opportunities.getId().equals(opportunityId))
-                .forEach(opportunities -> {
-                    updateOppor(opportunities.setActive(active));
-                    System.out.println("I`m here");
-                });
-
-    }
-
-    private void updateOppor(Opportunities opportunities){
-        opportunitiesRepository.save(opportunities);
+    public Boolean setActive(Boolean active, Principal principal, Integer opportunityId) {
+        Opportunities opportunities = opportunitiesRepository.findOne(opportunityId);
+        if (opportunities.getUser().getName().equals(principal.getName())) {
+            opportunitiesRepository.save(opportunities.setActive(active));
+            return true;
+        }
+        return false;
     }
 
     @Override
     public List<Opportunities> findAllByCategory(Integer idOfCategory) {
-        return findAll()
-                .stream()
-                .filter(opportunities -> opportunities.getCategory().getId().equals(idOfCategory)
-                        &&
-                        opportunities.getActive())
-                .collect(toList());
+        return opportunitiesRepository.findAllByCategory_Id(idOfCategory);
     }
 
     @Override
     public List<Opportunities> searchByWord(String word) {
         List<Opportunities> opportunitiesList = new ArrayList<>();
         for (Opportunities opportunities : findAll()) {
-            for(String splitedWorld:word.split(" ")) {
-                if(!splitedWorld.equals("and")
-                        &&!splitedWorld.equals("и")
-                        &&!splitedWorld.equals("і")
-                        &&!splitedWorld.equals("ще")
-                        &&!splitedWorld.equals("ещё")
-                        &&!splitedWorld.equals("або")
-                        &&!splitedWorld.equals("или")
-                        &&!splitedWorld.equals(",")
-                        &&!splitedWorld.equals("."))
+            for (String splitedWorld : word.split(" ")) {
+                if (!splitedWorld.equals("and") && !splitedWorld.equals("и") &&
+                        !splitedWorld.equals("і") && !splitedWorld.equals("ще") &&
+                        !splitedWorld.equals("ещё") && !splitedWorld.equals("або") &&
+                        !splitedWorld.equals("или") && !splitedWorld.equals(",") &&
+                        !splitedWorld.equals("."))
                     if (opportunities.getOfferDescription().contains(word) && opportunities.getActive().equals(true))
                         opportunitiesList.add(opportunities);
             }
         }
-
         return opportunitiesList;
     }
 
     @Override
-    public void saveOpportunitiesToUser(Principal principal, Integer id) {
-        findOne(id).setUser(userRepository.findByName(principal.getName()));
+    public Boolean saveOpportunitiesToUser(Principal principal, Integer id) {
+        try {
+            opportunitiesRepository.save(findOne(id).setUser(userService.findByName(principal.getName())));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public Opportunities createOpportunities(String opportunity, MultipartFile multipartFile, Principal principal) {
         String uuid = UUID.randomUUID().toString();
-        Opportunities opportunities = JsonMapper.json(opportunity,Opportunities.class);
+        Opportunities opportunities = JsonMapper.json(opportunity, Opportunities.class);
         opportunities.setStatus(Status.PUBLISHED);
         opportunities.setActive(true);
-        opportunities.setUser(userRepository.findByName(principal.getName()));
+        opportunities.setUser(userService.findByName(principal.getName()));
         opportunities.setPhotoPath("/res/file/" + uuid + "/"
                 + multipartFile.getOriginalFilename());
         opportunities.setCategory(categoryService.findOrCreate(opportunities.getCategory().getName()));
@@ -139,8 +130,7 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
             save(opportunities);
 
 
-
-            for (int i=0;i<6;i++) {
+            for (int i = 0; i < 6; i++) {
                 rateRepository.save(new Rate(i).setOpportunity(opportunities));
             }
 

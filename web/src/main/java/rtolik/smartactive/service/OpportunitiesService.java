@@ -16,15 +16,15 @@ public interface OpportunitiesService {
 
     List<Opportunities> findAllActive();
 
-    void delete(Integer id);
+    Boolean delete(Integer id);
 
-    void setActive(Boolean active, Principal principal,Integer opportunityId);
+    Boolean setActive(Boolean active, Principal principal,Integer opportunityId);
 
     List<Opportunities> findAllByCategory(Integer idOfCategory);
 
     List<Opportunities> searchByWord(String word);
 
-    void saveOpportunitiesToUser(Principal principal,Integer id);
+    Boolean saveOpportunitiesToUser(Principal principal,Integer id);
 
     Opportunities createOpportunities(String opportunity,
                                       MultipartFile multipartFile, Principal principal);
