@@ -1,10 +1,10 @@
 import {Component} from "@angular/core";
-import {EventService} from "../environments/service/event-rx-service";
-import {UserDetailsService} from "../environments/service/user-details-service";
-import {LangService} from "../environments/service/lang-rx-service";
+import {EventService} from "../shared/service/event-rx-service";
+import {UserDetailsService} from "../shared/service/user-details-service";
+import {LangService} from "../shared/service/lang-rx-service";
 import {LoginService} from "./login/login.service";
 import {isNull} from "util";
-import {ActiveGuardService} from "../environments/service/can-active/auth-guard-service";
+import {ActiveGuardService} from "../shared/can-active/auth-guard-service";
 
 @Component({
   selector: 'app-root',

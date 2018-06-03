@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from "@angular/core";
-import {Usage} from "../../../environments/models/usage";
+import {Usage} from "../../../shared/models/usage";
 import {AppComponent} from "../../app.component";
-import {Category} from "../../../environments/models/category";
+import {Category} from "../../../shared/models/category";
 
 @Component({
   selector: 'app-event-list',

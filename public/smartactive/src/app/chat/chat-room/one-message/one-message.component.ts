@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Message} from "../../../../environments/models/message";
-import {User} from "../../../../environments/models/user";
+import {Message} from "../../../../shared/models/message";
+import {User} from "../../../../shared/models/user";
 import {AppComponent} from "../../../app.component";
 import {OneMessageService} from "./one-message.service";
 

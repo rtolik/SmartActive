@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AppComponent} from "../../../app.component";
-import {Usage} from "../../../../environments/models/usage";
+import {Usage} from "../../../../shared/models/usage";
 
 @Component({
   selector: 'app-save-usage',

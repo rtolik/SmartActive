@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {Usage} from "../../../environments/models/usage";
-import {Url} from "../../../environments/url";
+import {Usage} from "../../../shared/models/usage";
+import {Url} from "../../../shared/config/url";
 
 @Injectable()
 export class EventOneService {

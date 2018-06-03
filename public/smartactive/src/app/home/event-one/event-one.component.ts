@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AppComponent} from "../../app.component";
-import {Usage} from "../../../environments/models/usage";
+import {Usage} from "../../../shared/models/usage";
 import {ActivatedRoute, RouterLinkActive} from "@angular/router";
 import {EventOneService} from "./event-one.service";
-import {Url} from "../../../environments/url";
+import {Url} from "../../../shared/config/url";
 
 @Component({
   selector: 'app-event-one',

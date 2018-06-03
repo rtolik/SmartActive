@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {MenageUsageService} from "./manage-usage.service";
 import {Router} from "@angular/router";
-import {Usage} from "../../../../environments/models/usage";
+import {Usage} from "../../../../shared/models/usage";
 import {AppComponent} from "../../../app.component";
 
 @Component({

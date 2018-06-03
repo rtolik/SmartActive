@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {Category} from "../../../environments/models/category";
+import {Category} from "../../../shared/models/category";
 import {Router} from "@angular/router";
-import {Usage} from "../../../environments/models/usage";
+import {Usage} from "../../../shared/models/usage";
 import {MainService} from "./main.service";
 import {AppComponent} from "../../app.component";
 

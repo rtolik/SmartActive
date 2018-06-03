@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {AppComponent} from "../../../app.component";
-import {User} from "../../../../environments/models/user";
+import {User} from "../../../../shared/models/user";
 
 @Component({
   selector: 'app-left-side',

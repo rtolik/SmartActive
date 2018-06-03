@@ -26,8 +26,8 @@ import {SaveMessageComponent} from "./home/cabinet/save-message/save-message.com
 import {SettingsComponent} from "./home/cabinet/settings/settings.component";
 import {ManageUsageOneComponent} from "./home/cabinet/manage-usage/manage-usage-one/manage-usage-one.component";
 import {SaveUsageOneComponent} from "./home/cabinet/save-usage/save-usage-one/save-usage-one.component";
-import {ActiveGuard} from "../environments/service/can-active/auth-guard";
-import {ActiveGuardService} from "../environments/service/can-active/auth-guard-service";
+import {ActiveGuard} from "../shared/can-active/auth-guard";
+import {ActiveGuardService} from "../shared/can-active/auth-guard-service";
 
 
 const routes: Routes = [

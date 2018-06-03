@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Category} from "../../environments/models/category";
-import {EventService} from "../../environments/service/event-rx-service";
+import {Category} from "../../shared/models/category";
+import {EventService} from "../../shared/service/event-rx-service";
 import {AppComponent} from "../app.component";
 
 @Component({

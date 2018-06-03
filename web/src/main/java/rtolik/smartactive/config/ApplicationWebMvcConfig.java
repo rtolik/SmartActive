@@ -1,7 +1,7 @@
 package rtolik.smartactive.config;
 
 
-import org.springframework.boot.context.embedded.MultipartConfigFactory;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ import javax.servlet.MultipartConfigElement;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan("mplus.hackathon")
+@ComponentScan("rtolik.smartactive")
 public class ApplicationWebMvcConfig extends WebMvcConfigurerAdapter {
     private static final String SWAGGER_API_VERSION = "1.0";
     private static final String LICENSE_TEXT = "License";
