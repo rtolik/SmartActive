@@ -36,7 +36,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/oauth/token").permitAll()
-                .antMatchers("/user").authenticated()
+                .antMatchers("/user").permitAll()
                 .antMatchers("/add").permitAll()
 //                /admin
 //                .antMatchers("/admin/**").hasRole(Roles.ADMIN.name().toUpperCase()) todo

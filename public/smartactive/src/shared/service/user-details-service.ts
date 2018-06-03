@@ -57,7 +57,7 @@ export class UserDetailsService {
     localStorage.setItem('refresh_token', data.refresh_token);
   }
 
-  private clearStorage() {
+  clearStorage() {
     if (!isPlatformBrowser(this.platformId))
       return;
     localStorage.removeItem('access_token');

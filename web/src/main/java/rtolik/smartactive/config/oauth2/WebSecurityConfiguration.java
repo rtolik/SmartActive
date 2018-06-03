@@ -32,10 +32,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
-//        auth.inMemoryAuthentication()
-//                .withUser("admin").password("admin").roles("ADMIN");
-
-
     }
 
     /**
@@ -50,7 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * Sets Bcrypt encoder to be used in application.
      *
-     * @return PAsswordEncoder instance.
+     * @return PasswordEncoder instance.
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -63,8 +59,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().headers().cacheControl().disable().and()
-         /*       .headers().frameOptions().sameOrigin()
-                .and()*/
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
