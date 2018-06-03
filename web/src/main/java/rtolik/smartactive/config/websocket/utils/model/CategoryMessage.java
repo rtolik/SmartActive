@@ -15,25 +15,25 @@ import java.util.List;
  */
 public class CategoryMessage {
 
-    private String id;
+    private Integer id;
     @JsonIgnore
     private List<Message> messages;
     private String name;
     private LocalDateTime time;
 
     public CategoryMessage(Category category){
-        this.id = category.getId() + "";
+        this.id = category.getId();
         this.name = category.getName();
         this.time = LocalDateTime.now();
     }
 
     public CategoryMessage(){}
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public CategoryMessage setId(String id) {
+    public CategoryMessage setId(Integer id) {
         this.id = id;
         return this;
     }

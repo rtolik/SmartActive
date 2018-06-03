@@ -52,16 +52,6 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String password, String email, String color) {
-        this.name = name;
-        this.password = password;
-        this.email = email;
-        this.color = color;
-        this.isActive = true;
-        this.numOfAppeals = 0;
-        this.bansCount = 0;
-    }
-
     public User(String name, String password, String email,
                 String color, Boolean isActive, String phone, String uuid) {
         this.name = name;
@@ -71,6 +61,8 @@ public class User implements UserDetails {
         this.isActive = isActive;
         this.phone = phone;
         this.uuid = uuid;
+        this.bansCount=0;
+        this.numOfAppeals=0;
     }
 
     public Integer getId() {
@@ -167,6 +159,15 @@ public class User implements UserDetails {
 
     public User setServices(List<Opportunities> services) {
         this.services = services;
+        return this;
+    }
+
+    public List<Opportunities> getLiked() {
+        return liked;
+    }
+
+    public User setLiked(List<Opportunities> liked) {
+        this.liked = liked;
         return this;
     }
 

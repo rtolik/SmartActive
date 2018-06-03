@@ -1,6 +1,7 @@
 package rtolik.smartactive.config.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import rtolik.smartactive.config.websocket.utils.errors.NullPointerCategory;
 import rtolik.smartactive.config.websocket.utils.model.CategoryMessage;
 import rtolik.smartactive.config.websocket.utils.model.Message;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+import rtolik.smartactive.models.Category;
+import rtolik.smartactive.service.CategoryService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -29,15 +33,13 @@ public class ChatHandler extends TextWebSocketHandler {
     public static final List<WebSocketSession> sessions = new ArrayList<>();
 
 
+    @Autowired
+    private CategoryService categoryService;
+
     static {
         List<Message> messageList = new ArrayList<>();
-        ChatHandler.categoryMessages.add(new CategoryMessage().setId("1").setMessages(messageList)
-                .setName("testmes").setTime(LocalDateTime.now()));
-        messageList.add(new Message().setMessage("Some Message").setCategoryMessage(ChatHandler.categoryMessages.get(0))
-                .setDate(LocalDateTime.now()).setUserName("test"));
-        messageList.add(new Message().setMessage("More Message").setCategoryMessage(ChatHandler.categoryMessages.get(0))
-                .setDate(LocalDateTime.now()).setUserName("test"));
-        ChatHandler.categoryMessages.get(0).setMessages(messageList);
+        ChatHandler.categoryMessages.add(new CategoryMessage().setId(0).setMessages(messageList)
+                .setName("tes").setTime(LocalDateTime.now()));
     }
 
     public void sendMessage(Message message, WebSocketSession socketSession) {
@@ -71,9 +73,22 @@ public class ChatHandler extends TextWebSocketHandler {
                 sessions.remove(sessions.indexOf(webSocketSession));
             });
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
+    }
 
+    @Scheduled(fixedDelay = 2000)
+    private void  createChatrooms(){
+        List<Message> messageList = new ArrayList<>();
+        List<Category> categories = categoryService.findAll();
+        if (categoryMessages.size()!=categories.size()){
+            for (Category category:categories) {
+                if(categoryMessages.stream().noneMatch(categoryMessage -> categoryMessage.getName().equals(category.getName()))){
+                    categoryMessages.add(new CategoryMessage().setId(category.getId()).setName(category.getName())
+                            .setTime(LocalDateTime.now()).setMessages(messageList));
+                }
+            }
+        }
     }
 
     private List<WebSocketSession> getWebSocketSessionFromCategory(CategoryMessage category) throws NullPointerCategory {
