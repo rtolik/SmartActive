@@ -14,4 +14,8 @@ public interface OpportunitiesRepository extends JpaRepository<Opportunities,Int
     List<Opportunities> findAllByCategory_Name(String category_name);
 
     List<Opportunities> findAllByCategory_Id(Integer integer);
+
+    List<Opportunities> findAllByUser_Id(Integer user_id);
+
+    List<Opportunities> findAllByUser_Name(String name);
 }

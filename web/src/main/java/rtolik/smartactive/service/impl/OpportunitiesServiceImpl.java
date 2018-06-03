@@ -11,14 +11,12 @@ import rtolik.smartactive.service.CategoryService;
 import rtolik.smartactive.service.OpportunitiesService;
 import rtolik.smartactive.service.RateService;
 import rtolik.smartactive.service.UserService;
+import rtolik.smartactive.service.utils.FileBuilder;
 import rtolik.smartactive.utils.JsonMapper;
 
-import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 
@@ -33,6 +31,8 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     private RateService rateService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private FileBuilder fileBuilder;
 
     @Override
     public Opportunities save(Opportunities service) {
@@ -110,33 +110,16 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
 
     @Override
     public Opportunities createOpportunities(String opportunity, MultipartFile multipartFile, Principal principal) {
-        String uuid = UUID.randomUUID().toString();
         Opportunities opportunities = JsonMapper.json(opportunity, Opportunities.class);
-        opportunities.setStatus(Status.PUBLISHED);
-        opportunities.setActive(true);
-        opportunities.setUser(userService.findByName(principal.getName()));
-        opportunities.setPhotoPath("/res/file/" + uuid + "/"
-                + multipartFile.getOriginalFilename());
-        opportunities.setCategory(categoryService.findOrCreate(opportunities.getCategory().getName()));
-        String path = System.getProperty("catalina.home") + "/resources/hakathon/file/" + uuid + "/"
-                + multipartFile.getOriginalFilename();
-        System.out.println(path);
-        File file = new File(path);
-
-        try {
-            file.getParentFile().mkdirs();
-            multipartFile.transferTo(file);
-
-            save(opportunities);
-
-
-            for (int i = 0; i < 6; i++) {
-                rateRepository.save(new Rate(i).setOpportunity(opportunities));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("error with file");
+        opportunities
+                .setStatus(Status.PUBLISHED)
+                .setActive(true)
+                .setUser(userService.findByName(principal.getName()))
+                .setPhotoPath(fileBuilder.saveFile(multipartFile))
+                .setCategory(categoryService.findOrCreate(opportunities.getCategory().getName()));
+        save(opportunities);
+        for (int i = 0; i < 6; i++) {
+            rateService.save(new Rate(i).setOpportunity(opportunities));
         }
         return opportunities;
     }
@@ -158,28 +141,26 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     @Override
     public List<Opportunities> filterListByCategory(List<Opportunities> filterList, Integer categoryId) {
         return filterList.stream()
-                .filter(opportunities -> opportunities.getCategory().getId() == categoryId)
+                .filter(opportunities -> opportunities.getCategory().getId().equals(categoryId))
                 .collect(toList());
     }
 
     @Override
     public List<Opportunities> filterListByKeywords(List<Opportunities> filterlist, String keywords) {
         return filterlist.stream()
-                .filter(opportunities -> filterOpportunityBySplitedKeywords(opportunities.getId(), keywords)
-                        &&
-                        opportunities.getActive().equals(true))
+                .filter(opportunities ->
+                        filterOpportunityBySplitedKeywords(opportunities.getId(), keywords) &&
+                                opportunities.getActive())
                 .collect(toList());
     }
 
     @Override
     public List<Opportunities> findByUser(Principal principal) {
-
-        return userRepository.findByName(principal.getName()).getServices();
+        return opportunitiesRepository.findAllByUser_Name(principal.getName());
     }
 
 
     private Boolean filterOpportunityBySplitedKeywords(Integer opportunitiesId, String keywords) {
-
         for (String splitedWorld : keywords.split(" ")) {
             if (!splitedWorld.equals("and")
                     && !splitedWorld.equals(",")
@@ -187,7 +168,6 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
                 if (findOne(opportunitiesId).getOfferDescription().toLowerCase().contains(splitedWorld.toLowerCase())) {
                     return true;
                 }
-
         }
         return false;
     }
