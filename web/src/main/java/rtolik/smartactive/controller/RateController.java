@@ -1,5 +1,6 @@
 package rtolik.smartactive.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import rtolik.smartactive.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class RateController {
     private RateService rateService;
 
 
-    @RequestMapping("/incrementVoices")
+    @GetMapping("/incrementVoices")
     private ResponseEntity incrementRate(@RequestParam(required = false) Integer opportunityId,
                                          @RequestParam(required = false) Integer val){
         if(opportunityId==null||val==null)
@@ -29,7 +30,7 @@ public class RateController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping("/countAvg")
+    @GetMapping("/countAvg")
     private  ResponseEntity<Integer> countAvg(@RequestParam Integer opportId){
         if (opportId==null)
             return new ResponseEntity<Integer>(HttpStatus.NO_CONTENT);

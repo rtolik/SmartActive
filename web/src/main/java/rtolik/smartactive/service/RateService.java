@@ -12,7 +12,7 @@ import java.util.List;
 public interface RateService {
     Rate save(Rate rate);
 
-    List<Rate> findAllInOpporunity(Integer opporunityId);
+    List<Rate> findAllRatesInOpporunity(Integer opporunityId);
 
     Rate findOne(Integer id);
 

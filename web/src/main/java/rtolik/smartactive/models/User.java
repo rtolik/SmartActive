@@ -72,7 +72,7 @@ public class User implements UserDetails {
 
     public User setId(Integer id) {
         this.id = id;
-        return  this;
+        return this;
     }
 
     public String getName() {
@@ -81,16 +81,17 @@ public class User implements UserDetails {
 
     public User setName(String name) {
         this.name = name;
-        return  this;
+        return this;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
     public User setPassword(String password) {
         this.password = password;
-        return  this;
+        return this;
     }
 
     public String getEmail() {
@@ -99,7 +100,7 @@ public class User implements UserDetails {
 
     public User setEmail(String email) {
         this.email = email;
-        return  this;
+        return this;
     }
 
     public String getColor() {
@@ -108,7 +109,7 @@ public class User implements UserDetails {
 
     public User setColor(String color) {
         this.color = color;
-        return  this;
+        return this;
     }
 
     public Boolean getActive() {
@@ -117,7 +118,7 @@ public class User implements UserDetails {
 
     public User setActive(Boolean active) {
         isActive = active;
-        return  this;
+        return this;
     }
 
     public Integer getNumOfAppeals() {
@@ -142,33 +143,8 @@ public class User implements UserDetails {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public User setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public List<Opportunities> getServices() {
-        return services;
-    }
-
-    public User setServices(List<Opportunities> services) {
-        this.services = services;
-        return this;
-    }
-
-    public List<Opportunities> getLiked() {
-        return liked;
-    }
-
-    public User setLiked(List<Opportunities> liked) {
-        this.liked = liked;
         return this;
     }
 
@@ -187,6 +163,33 @@ public class User implements UserDetails {
 
     public User setDateOfban(String dateOfban) {
         this.dateOfban = dateOfban;
+        return this;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public User setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    public List<Opportunities> getServices() {
+        return services;
+    }
+
+    public User setServices(List<Opportunities> services) {
+        this.services = services;
+        return this;
+    }
+
+    public List<Opportunities> getLiked() {
+        return liked;
+    }
+
+    public User setLiked(List<Opportunities> liked) {
+        this.liked = liked;
         return this;
     }
 

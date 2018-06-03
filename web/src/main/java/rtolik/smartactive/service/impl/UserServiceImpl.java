@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePassword(String userUuid,String password) {
 
-        findByUuid(userUuid).setPassword(encoder.encode(password)).setUuid(UUID.randomUUID().toString());
+        saveUser(findByUuid(userUuid).setPassword(encoder.encode(password)).setUuid(UUID.randomUUID().toString()));
 
     }
 

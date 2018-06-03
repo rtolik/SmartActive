@@ -30,7 +30,7 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public List<Rate> findAllInOpporunity(Integer opporunityId) {
+    public List<Rate> findAllRatesInOpporunity(Integer opporunityId) {
         return opportunitiesService.findOne(opporunityId).getRates();
     }
 
@@ -41,14 +41,16 @@ public class RateServiceImpl implements RateService {
 
     @Override
     public void incrementVoices(Integer opportunityId, Integer val) {
-        Integer tmp = findAllInOpporunity(opportunityId).stream()
+        List<Rate> rates=findAllRatesInOpporunity(opportunityId);
+        Integer tmp = rates.stream()
                 .filter(rate -> rate.getGrade().equals(val))
                 .findFirst()
                 .get()
                 .getVoices();
-        findAllInOpporunity(opportunityId).stream()
-                .filter(rate -> rate.getGrade().equals(val))
-                .findFirst().get().setVoices(tmp+1);
+        rates.forEach(rate -> {
+            if (rate.equals(val))
+                save(rate.setVoices(tmp+1));
+        });
     }
 
     @Override
@@ -56,7 +58,7 @@ public class RateServiceImpl implements RateService {
         Double avg;
         Double coutGrades=0.0;
         Double countVoices=0.0;
-        List<Rate> rates = findAllInOpporunity(opportnityId).stream()
+        List<Rate> rates = findAllRatesInOpporunity(opportnityId).stream()
                 .filter(rate ->rate.getVoices()>0 )
                 .collect(toList());
         for (Rate rate:rates) {
