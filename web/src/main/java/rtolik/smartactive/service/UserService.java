@@ -40,6 +40,6 @@ public interface UserService {
 
     List<Opportunities> findLiked(Integer userId);
 
-    void like(Integer userId, Integer opportunityId);
+    Boolean like(Integer userId, Integer opportunityId);
 
 }

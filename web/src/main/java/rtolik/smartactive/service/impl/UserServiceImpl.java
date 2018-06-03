@@ -4,6 +4,7 @@ import rtolik.smartactive.models.Opportunities;
 import rtolik.smartactive.models.User;
 import rtolik.smartactive.repository.UserRepository;
 
+import rtolik.smartactive.service.OpportunitiesService;
 import rtolik.smartactive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OpportunitiesService opportunitiesService;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -135,7 +139,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void like(Integer opportunityId) {
+    public Boolean like(Integer userId ,Integer opportunityId) {
+        try {
 
+            User tmp= findOne(userId);
+            List<Opportunities> liked= tmp.getLiked();
+            liked.add(opportunitiesService.findOne(opportunityId));
+            save(tmp.setLiked(liked));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }
