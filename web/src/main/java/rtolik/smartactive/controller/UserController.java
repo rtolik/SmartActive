@@ -39,12 +39,12 @@ public class UserController {
     @Autowired
     private MailSenderService mailSenderService;
 
-    @RequestMapping("/g")
+    @GetMapping("/g")
     private ResponseEntity<String> some(Principal principal) {
-        return new ResponseEntity<String>(principal.toString(), HttpStatus.OK);
+        return new ResponseEntity<>(principal.toString(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     private ResponseEntity<User> save(@RequestParam(required = false) String name,
                                       @RequestParam(required = false) String password,
                                       @RequestParam(required = false) String email,
@@ -59,7 +59,7 @@ public class UserController {
 
     }
 
-    @RequestMapping("/findOne")
+    @GetMapping("/findOne")
     private ResponseEntity<User> findOne(@RequestParam(required = false) Integer id) {
 
         if (userService.findOne(id) == null) {
@@ -68,7 +68,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
     }
 
-    @RequestMapping("/getUserByPrincipal")
+    @GetMapping("/getUserByPrincipal")
     private ResponseEntity<User> getUserByPrincipal(Principal principal) {
         if(principal == null)
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
@@ -76,7 +76,7 @@ public class UserController {
     }
 
 
-    @RequestMapping("/findAll")
+    @GetMapping("/findAll")
     private ResponseEntity<List<User>> findOne() {
 
         if (userService.findAll() == null) {
@@ -85,7 +85,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/sendEmail",method = RequestMethod.GET)
+    @GetMapping(value = "/sendEmail")
     public ResponseEntity sendEmail(@RequestParam String email){
 
         mailSenderService.sendMail("Forgot password",
@@ -93,14 +93,14 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/confirm/{uuid}",method = RequestMethod.GET)
+    @GetMapping(value = "/confirm/{uuid}")
     public ResponseEntity sendEmail(@RequestParam String password, @PathVariable String uuid){
         userService.updatePassword(uuid,password);
         return new ResponseEntity(HttpStatus.OK);
     }
 
 
-    @RequestMapping("/validateName")
+    @GetMapping("/validateName")
     private ResponseEntity<Boolean> validateName(@RequestParam(required = false) String name) {
         if (name == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -108,7 +108,7 @@ public class UserController {
         return new ResponseEntity<>(userService.validateName(name), HttpStatus.OK);
     }
 
-    @RequestMapping("/validateEmail")
+    @GetMapping("/validateEmail")
     private ResponseEntity<Boolean> validateEmail(@RequestParam(required = false) String email) {
         if (email == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -117,7 +117,7 @@ public class UserController {
         return new ResponseEntity<>(userService.validateEmail(email), HttpStatus.OK);
     }
 
-    @RequestMapping("/deleteUser")
+    @GetMapping("/deleteUser")
     private ResponseEntity selfdelete(@RequestParam(required = false) Principal principal) {
         if (principal == null) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -126,7 +126,7 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     private ResponseEntity<Boolean> login(@RequestParam(required = false) String name,
                                           @RequestParam(required = false) String password) {
         if (name == null || password == null)
@@ -136,7 +136,7 @@ public class UserController {
         return new ResponseEntity<Boolean>(userService.login(name, password), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/ban",method = RequestMethod.POST)
+    @PostMapping(value = "/ban")
     private ResponseEntity ban(@RequestParam String name) {
         userService.appeal(name);
         return new ResponseEntity(HttpStatus.OK);
@@ -147,12 +147,12 @@ public class UserController {
         userService.scheduledUnban();
     }
 
-    @RequestMapping("/getPrincipal")
+    @GetMapping("/getPrincipal")
     private ResponseEntity<Boolean> getPrincipal(Principal principal){
         return new ResponseEntity<>(Optional.ofNullable(principal).isPresent(),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findByName",method = RequestMethod.POST)
+    @PostMapping(value = "/findByName")
     private ResponseEntity<User> findByName(@RequestParam String name) {
 
         return new ResponseEntity<>(userService.findByName(name),HttpStatus.OK);
