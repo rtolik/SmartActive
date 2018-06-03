@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -77,11 +78,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void ban(String name, Boolean isActive) {
-        if (findByName(name).getBansCount() - 1 > 0) {
-            saveUser(findByName(name).setBansCount(findByName(name).getBansCount() - 1));
+    public void ban(Integer id) {
+        User user= findOne(id);
+        if (user.getBansCount() - 1 > 0) {
+            saveUser(user.setBansCount(user.getBansCount() - 1).setActive(false)
+                    .setDateOfban(LocalDate.now().toString()));
         } else {
-            saveUser(findByName(name).setBansCount(5).setActive(isActive));
+            saveUser(user.setBansCount(5).setActive(false).setDateOfban(LocalDate.now().toString()));
         }
 
     }
@@ -124,7 +127,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void appeal(Integer id) {//TODO write method to ban for time
-        findOne(id).setNumOfAppeals(findOne(id).getNumOfAppeals() + 1);
+        User user=findOne(id).setNumOfAppeals(findOne(id).getNumOfAppeals() + 1);
+        if (user.getNumOfAppeals()>=5) {
+            user.setNumOfAppeals(0);
+            ban();
+        }
+        save(user);
     }
 
 

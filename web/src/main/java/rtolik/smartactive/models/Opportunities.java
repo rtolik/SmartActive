@@ -1,9 +1,12 @@
 package rtolik.smartactive.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import rtolik.smartactive.models.enums.Status;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.List;
 
 /**
@@ -40,6 +43,7 @@ import java.util.List;
     @ManyToOne
     private User user;
 
+    @Cascade(CascadeType.DELETE)
     @JsonIgnore
     @OneToMany(mappedBy = "opportunity")
     private List<Rate> rates;

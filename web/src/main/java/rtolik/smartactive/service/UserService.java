@@ -23,7 +23,7 @@ public interface UserService {
 
     void selfDelete(Principal principal);
 
-    void ban(String name,Boolean isaActive);
+    void ban(Integer id);
 
     void appeal(Integer id);
 

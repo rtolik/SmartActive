@@ -43,7 +43,7 @@ export class RegistrationService {
     body.append("name", user.name);
     body.append("password", pass);
     body.append("color", user.color);
-    body.append("phone", "1234567890");
+    body.append("phone", user.phoneNumber );
     return this
       ._http
       .post(Url.url + "/user/add", body, options)

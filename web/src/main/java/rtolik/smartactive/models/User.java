@@ -1,12 +1,15 @@
 package rtolik.smartactive.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import rtolik.smartactive.models.enums.Role;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,11 +36,14 @@ public class User implements UserDetails {
     private Integer bansCount;
     private String phone;
     private Role role;
+    private String dateOfban;
     @JsonIgnore
     private String uuid;
+    @Cascade(CascadeType.DELETE)
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Opportunities> services;
+    @Cascade(CascadeType.DELETE)
     @JsonIgnore
     @ManyToMany
     private List<Opportunities> liked;
@@ -54,8 +60,10 @@ public class User implements UserDetails {
         this.isActive = isActive;
         this.phone = phone;
         this.uuid = uuid;
-        this.bansCount=0;
+        this.bansCount=5;
         this.numOfAppeals=0;
+        this.role=Role.DEFAULT;
+        this.dateOfban="";
     }
 
     public Integer getId() {
@@ -161,6 +169,24 @@ public class User implements UserDetails {
 
     public User setLiked(List<Opportunities> liked) {
         this.liked = liked;
+        return this;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public User setRole(Role role) {
+        this.role = role;
+        return this;
+    }
+
+    public String getDateOfban() {
+        return dateOfban;
+    }
+
+    public User setDateOfban(String dateOfban) {
+        this.dateOfban = dateOfban;
         return this;
     }
 
