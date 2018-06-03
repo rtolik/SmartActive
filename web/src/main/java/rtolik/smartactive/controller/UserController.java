@@ -144,12 +144,8 @@ public class UserController {
 
     @Scheduled(fixedDelay = 86400)
     private void unlockUser() {
-        userRepository.findAll().stream().filter(user -> !user.getActive()).forEach(user -> {
-            userRepository.save(user.setActive(true));
-
-        });
+        userService.scheduledUnban();
     }
-    //TODO make user banned and unbamnned
 
     @RequestMapping("/getPrincipal")
     private ResponseEntity<Boolean> getPrincipal(Principal principal){
