@@ -27,69 +27,77 @@ import {SettingsComponent} from "./home/cabinet/settings/settings.component";
 import {ManageUsageOneComponent} from "./home/cabinet/manage-usage/manage-usage-one/manage-usage-one.component";
 import {SaveUsageOneComponent} from "./home/cabinet/save-usage/save-usage-one/save-usage-one.component";
 import {ActiveGuard} from "../shared/can-active/auth-guard";
-import {ActiveGuardService} from "../shared/can-active/auth-guard-service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {CustomHttpInterceptor} from "../shared/interceptors/custom-http.interceptor";
 
 
 const routes: Routes = [
-  {
-    path: 'chat', component: ChatComponent/*, canActivate: [ActiveGuard]*/, children: [
-    {path: ':id', component: ChatRoomComponent},
-    {path: '', component: ChatSelectComponent}
-  ]
-  },
-  {path: 'login', component: LoginComponent},
-  {path: 'signup', component: RegistrationComponent},
-  {
-    path: '', component: HomeComponent, children: [
-    {path: '', component: MainComponent},
-    {path: 'list', component: EventListComponent},
-    {path: ':id', component: EventOneComponent},
     {
-      path: 'cabinet', component: CabinetComponent/*, canActivate: [ActiveGuard]*/, children: [
-      {path: 'settings', component: SettingsComponent},
-      {path: 'manage_usage', component: ManageUsageComponent},
-      {path: 'save_usage', component: SaveUsageComponent},
-      {path: 'save_message', component: SaveMessageComponent},
-    ]
+        path: 'chat', component: ChatComponent/*, canActivate: [ActiveGuard]*/, children: [
+            {path: ':id', component: ChatRoomComponent},
+            {path: '', component: ChatSelectComponent}
+        ]
+    },
+    {path: 'login', component: LoginComponent},
+    {path: 'signup', component: RegistrationComponent},
+    {
+        path: '', component: HomeComponent, children: [
+            {path: '', component: MainComponent},
+            {path: 'list', component: EventListComponent},
+            {path: ':id', component: EventOneComponent},
+            {
+                path: 'cabinet', component: CabinetComponent/*, canActivate: [ActiveGuard]*/, children: [
+                    {path: 'settings', component: SettingsComponent},
+                    {path: 'manage_usage', component: ManageUsageComponent},
+                    {path: 'save_usage', component: SaveUsageComponent},
+                    {path: 'save_message', component: SaveMessageComponent},
+                ]
+            }
+        ]
     }
-  ]
-  }
 ];
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ChatComponent,
-    ChatRoomComponent,
-    ChatSelectComponent,
-    HomeComponent,
-    EventListComponent,
-    EventOneComponent,
-    FilterComponent,
-    LoginComponent,
-    RegistrationComponent,
-    EventListOneElementComponent,
-    HeaderComponent,
-    MainComponent,
-    FilterOneComponent,
-    OneMessageComponent,
-    CabinetComponent,
-    LeftSideComponent,
-    ManageUsageComponent,
-    SaveUsageComponent,
-    SaveMessageComponent,
-    SettingsComponent,
-    ManageUsageOneComponent,
-    SaveUsageOneComponent
-  ],
-  imports: [
-    HttpModule,
-    BrowserModule,
-    RouterModule.forRoot(routes, {useHash: true})
-  ],
-  providers: [ActiveGuard],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ChatComponent,
+        ChatRoomComponent,
+        ChatSelectComponent,
+        HomeComponent,
+        EventListComponent,
+        EventOneComponent,
+        FilterComponent,
+        LoginComponent,
+        RegistrationComponent,
+        EventListOneElementComponent,
+        HeaderComponent,
+        MainComponent,
+        FilterOneComponent,
+        OneMessageComponent,
+        CabinetComponent,
+        LeftSideComponent,
+        ManageUsageComponent,
+        SaveUsageComponent,
+        SaveMessageComponent,
+        SettingsComponent,
+        ManageUsageOneComponent,
+        SaveUsageOneComponent
+    ],
+    imports: [
+        HttpModule,
+        BrowserModule,
+        RouterModule.forRoot(routes, {useHash: true})
+    ],
+    providers: [
+        ActiveGuard,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: CustomHttpInterceptor,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

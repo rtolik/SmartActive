@@ -1,5 +1,6 @@
 package rtolik.smartactive.controller;
 
+import org.springframework.web.bind.annotation.*;
 import rtolik.smartactive.config.websocket.ChatHandler;
 import rtolik.smartactive.config.websocket.utils.model.CategoryMessage;
 import rtolik.smartactive.models.Category;
@@ -7,10 +8,6 @@ import rtolik.smartactive.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -24,7 +21,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @PostMapping("/add")
     private ResponseEntity<Category> add(@RequestParam(required = false) String name){
         if(name == null)
         {
@@ -35,7 +32,7 @@ public class CategoryController {
         return  new ResponseEntity<>(category,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findOne",method = RequestMethod.GET)
+    @GetMapping("/findOne")
     private ResponseEntity<Category> findOne(@RequestParam(required = false) Integer id){
         if(id == null)
         {
@@ -44,9 +41,8 @@ public class CategoryController {
         return  new ResponseEntity<>(categoryService.findOne(id),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
+    @GetMapping("/findAll")
     private ResponseEntity<List<Category>> findAll(){
-
         if(categoryService.findAll()==null)
         {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,7 +50,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.findAll(),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/filterByWord",method = RequestMethod.POST)
+    @PostMapping("/filterByWord")
     private ResponseEntity<List<String>> filterByWord(@RequestParam String word){
 
         if(categoryService.findAll()==null)
@@ -64,7 +60,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.filterByWord(word),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findAllByIds",method = RequestMethod.GET)
+    @GetMapping("/findAllByIds")
     private ResponseEntity<List<Category>> findByIds(@RequestParam(required = false) List<Integer> ids){
         if(categoryService.findCategories(ids)==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -72,7 +68,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.findCategories(ids),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    @DeleteMapping("/delete")
     private ResponseEntity delete(@RequestParam Integer id){
         categoryService.delete(id);
         return new ResponseEntity(HttpStatus.OK);

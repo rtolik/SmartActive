@@ -11,4 +11,5 @@ export class User{
   numOfAppeals:number;
   bansCount:number;
   phoneNumber:string;
+  role:string;
 }
