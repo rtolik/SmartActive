@@ -1,6 +1,7 @@
 package rtolik.smartactive.config.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +17,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @ComponentScan("rtolik.smartactive")
@@ -73,34 +76,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/oauth/token").permitAll()
                 .and().formLogin().loginPage("/login").permitAll()
-//                .and().cors().configurationSource(corsConfigurationSource())
         ;
     }
-
+//
 //    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:8080", "http://smartactive.hopto.org"));
-//        configuration.setAllowCredentials(true);
-//        configuration.setAllowedHeaders(Arrays.asList(
-//                "Content-Type",
-//                "X-Requested-With",
-//                "accept",
-//                "Origin",
-//                "Access-Control-Request-Method",
-//                "Access-Control-Allow-Origin",
-//                "Access-Control-Request-Headers"
-//        ));
-//        configuration.setAllowedMethods(Arrays.asList(
-//                "GET",
-//                "POST",
-//                "OPTIONS",
-//                "PUT",
-//                "DELETE"
-//        ));
+//    public FilterRegistrationBean corsFilter() {
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//        source.registerCorsConfiguration("/**", config);
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+//        bean.setOrder(0);
+//        return bean;
 //    }
-
 }
