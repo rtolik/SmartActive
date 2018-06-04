@@ -13,7 +13,7 @@ export class UserService {
   }
 
   getUser(): Observable<User> {
-    return this._httpClient.get(`${this.controller}/getUser`).catch(err => Observable.throw(err));
+    return this._httpClient.get(this.controller).catch(err => Observable.throw(err));
   }
 
   add(form: FormData):Observable<User>{
