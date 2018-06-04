@@ -4,31 +4,12 @@ import {Observable} from "rxjs/Observable";
 import {Opportunity} from "../../../shared/models/opportunity";
 import {Url} from "../../../shared/config/url";
 import {Category} from "../../../shared/models/category";
+import {HttpParams} from "@angular/common/http";
 
 @Injectable()
 export class MainService {
 
   constructor(private _http: Http) {
-  }
-
-
-  researchCategory(text: string, price:string,catId:string): Observable<Opportunity[]> {
-    let headers = new Headers();
-    // headers.append('Access-Control-Allow-Headers', 'application/json');
-    // headers.append('Access-Control-Allow-Methods', 'PUT');
-    // headers.append('Access-Control-Allow-Origin', '*');
-    let options = new RequestOptions({headers: headers});
-
-    let body: FormData = new FormData();
-    body.append("keywords", text);
-    body.append("maxPrice", price);
-    body.append("categoryId", catId);
-    return this
-      ._http
-      .post(Url.url + "/services/multipleFilter",body, options).map(res => res.json())
-      .catch((error) => Observable.throw(error));
-
-
   }
 
   findAllCategories():Observable<Category[]>{

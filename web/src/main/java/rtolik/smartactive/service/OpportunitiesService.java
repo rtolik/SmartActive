@@ -29,7 +29,7 @@ public interface OpportunitiesService {
     void saveOpportunitiesToUserLiked(Principal principal,Integer id);
 
     Opportunity createOpportunities(String opportunity,
-                                    MultipartFile multipartFile, Principal principal);
+                                    MultipartFile multipartFile, Integer id);
 
     List<Opportunity> findByMaxPrice(Double maxPrice);
 

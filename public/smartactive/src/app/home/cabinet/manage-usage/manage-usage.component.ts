@@ -3,33 +3,34 @@ import {MenageUsageService} from "./manage-usage.service";
 import {Router} from "@angular/router";
 import {Opportunity} from "../../../../shared/models/opportunity";
 import {AppComponent} from "../../../app.component";
+import {OpportunityService} from "../../../../shared/service/opportunity.service";
+import {Category} from "../../../../shared/models/category";
+import {UserDetailsService} from "../../../../shared/service/user-details-service";
 
 @Component({
   selector: 'app-manage-usage',
   templateUrl: './manage-usage.component.html',
   styleUrls: ['./manage-usage.component.css'],
-  providers: [MenageUsageService]
+  providers: [MenageUsageService, OpportunityService]
 })
 export class ManageUsageComponent implements OnInit {
 
 
-  Statuses;
-  LoadedOpporByUser: Opportunity[]=[];
+  statuses;
+  LoadedOpporByUser: Opportunity[] = [];
+  opportunity: Opportunity = new Opportunity();
 
   dropList: string[] = [];
+  lang: string;
 
-  constructor(private _menageUsageService: MenageUsageService, private _router: Router) {
-
+  constructor(private _menageUsageService: MenageUsageService, private _opportunityService: OpportunityService,private _userDetails:UserDetailsService) {
+    this.opportunity.category=new Category();
     this.lang = AppComponent.langService.slang;
     AppComponent.langService._lang$.subscribe(next => {
       this.lang = next;
       this.getStatuses();
     });
   }
-
-
-  lang: string;
-
 
   inputCategory(inp: HTMLInputElement) {
     this._menageUsageService.loadDropList(inp.value).subscribe(
@@ -46,20 +47,21 @@ export class ManageUsageComponent implements OnInit {
   }
 
   addOpportunities(form: HTMLFormElement) {
-    this._menageUsageService.addOpportunities(form).subscribe((data) => console.log(data.url + " http:[" + data.statusText + "]"));
+    let data = new FormData(form);
+    data.append('opportunity', JSON.stringify(this.opportunity));
+    this._opportunityService.add(data,this._userDetails.user.id).subscribe((next) => console.log(next));
 
   }
 
   getStatuses() {
-    this._menageUsageService.getStatuses().subscribe((data) => {
-      console.log(data.url + " http:[" + data.statusText + "]");
-      this.Statuses = data.json()
+    this._opportunityService.loadStatuses().subscribe((data) => {
+      this.statuses = data;
     });
   }
 
   loadOpporByUser() {
-    this._menageUsageService.loadOpporByUser().subscribe((data) => {
-      this.LoadedOpporByUser = data.json()
+    this._opportunityService.findByUser().subscribe((data) => {
+      this.LoadedOpporByUser = data;
     });
   }
 

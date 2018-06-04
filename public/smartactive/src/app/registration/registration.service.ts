@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {Url} from "../../shared/config/url";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {User} from "../../shared/models/user";
+import {HttpParams} from "@angular/common/http";
 
 @Injectable()
 export class RegistrationService {
@@ -11,14 +12,9 @@ export class RegistrationService {
   }
 
   validateName(nickName: string): Observable<boolean> {
-    let headers = new Headers({});
-
-    let options = new RequestOptions({headers: headers});
-    let body = new FormData();
-    body.append("name", nickName);
     return this
       ._http
-      .post(Url.url + "/user/validateName", body, options)
+      .get(Url.url + "/user/validateName", {params:new HttpParams().set('name',nickName)})
       .catch((error) => Observable.throw(error));
   }
 

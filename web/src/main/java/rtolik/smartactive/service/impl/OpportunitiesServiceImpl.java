@@ -1,5 +1,6 @@
 package rtolik.smartactive.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 public class OpportunitiesServiceImpl implements OpportunitiesService {
+    private static final Logger LOGGER = Logger.getLogger(OpportunitiesServiceImpl.class);
 
     @Autowired
     private OpportunitiesRepository opportunitiesRepository;
@@ -118,12 +120,13 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     }
 
     @Override
-    public Opportunity createOpportunities(String opportunity, MultipartFile multipartFile, Principal principal) {
+    public Opportunity createOpportunities(String opportunity, MultipartFile multipartFile, Integer id) {
+        LOGGER.info(id ==null);
         Opportunity opportunities = JsonMapper.json(opportunity, Opportunity.class);
         opportunities
                 .setStatus(Status.PUBLISHED)
                 .setActive(true)
-                .setUser(userService.findByName(principal.getName()))
+                .setUser(userService.findOne(id))
                 .setPhotoPath(fileBuilder.saveFile(multipartFile))
                 .setCategory(categoryService.findOrCreate(opportunities.getCategory().getName()));
         save(opportunities);

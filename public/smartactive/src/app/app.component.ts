@@ -28,6 +28,7 @@ export class AppComponent {
     if (this._userDetails.checkAuth()) {
       this._userService.getUser().subscribe(next => {
         this._userDetails.login(next);
+        console.log(next);
       });
     } else {
       this._userDetails.logout();

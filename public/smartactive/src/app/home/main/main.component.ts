@@ -4,12 +4,13 @@ import {Router} from "@angular/router";
 import {Opportunity} from "../../../shared/models/opportunity";
 import {MainService} from "./main.service";
 import {AppComponent} from "../../app.component";
+import {OpportunityService} from "../../../shared/service/opportunity.service";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
-  providers: [MainService]
+  providers: [MainService,OpportunityService]
 })
 export class MainComponent implements OnInit {
 
@@ -17,7 +18,7 @@ export class MainComponent implements OnInit {
   usagesList: Opportunity[] = [];
   lang: string;
 
-  constructor(private _router: Router, private _mainService: MainService) {
+  constructor(private _router: Router, private _mainService: MainService,private _opportunityService:OpportunityService) {
     this.lang = AppComponent.langService.slang;
     AppComponent.langService._lang$.subscribe(next => {
       this.lang = next;
@@ -41,10 +42,10 @@ export class MainComponent implements OnInit {
   ngOnInit() {
   }
 
-  research(res: HTMLInputElement, price: HTMLInputElement/*, id: HTMLSelectElement*/) {
+  research(res: string, price: number, id: number) {
     event.preventDefault();
     AppComponent.eventService.remAll();
-    this._mainService.researchCategory(res.value, price.value, "").subscribe(
+    this._opportunityService.multipleFilter(id,price,res).subscribe(
       next => {
         let categories: Category[] = [];
         for (let i = 0; i < next.length; i++) {

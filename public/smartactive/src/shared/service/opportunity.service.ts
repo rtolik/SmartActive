@@ -13,8 +13,8 @@ export class OpportunityService {
   constructor(private _httpClient: HttpClient) {
   }
 
-  add(form: FormData): Observable<Opportunity> {
-    return this._httpClient.post(`${this.controller}/add`, form, {headers: new HttpHeaders().append("enctype", 'enctype')}).catch(err => Observable.throw(err));
+  add(form: FormData,id:number): Observable<Opportunity> {
+    return this._httpClient.post(`${this.controller}/add/${id}`, form, {headers: new HttpHeaders().append("enctype", 'enctype')}).catch(err => Observable.throw(err));
   }
 
   findOne(id: number): Observable<Opportunity> {

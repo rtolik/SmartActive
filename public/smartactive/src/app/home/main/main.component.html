@@ -8,5 +8,5 @@
   <select  class="input_select" #idSelect>
     <option *ngFor="let one of  categoriesList" value="{{one.id}}">{{one.name}}</option>
   </select>
-  <button (click)="research(researchId,priceInput,idSelect)" class="btn_search" title="Знайти">{lang, select, ua{Знайти} ru {Найти}}</button>
+  <button (click)="research(researchId.value,priceInput.value,idSelect.value)" class="btn_search" title="Знайти">{lang, select, ua{Знайти} ru {Найти}}</button>
 </form>

@@ -30,6 +30,7 @@ import {ActiveGuard} from "../shared/can-active/auth-guard";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CustomHttpInterceptor} from "../shared/interceptors/custom-http.interceptor";
 import {UserDetailsService} from "../shared/service/user-details-service";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 const routes: Routes = [
@@ -89,6 +90,8 @@ const routes: Routes = [
         HttpModule,
         HttpClientModule,
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forRoot(routes, {useHash: true})
     ],
     providers: [
