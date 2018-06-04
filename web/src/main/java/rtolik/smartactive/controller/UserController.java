@@ -59,8 +59,8 @@ public class UserController {
 
     }
 
-    @GetMapping("/findOne")
-    private ResponseEntity<User> findOne(@RequestParam(required = false) Integer id) {
+    @GetMapping("/findOne/{id}")
+    private ResponseEntity<User> findOne(@PathVariable Integer id) {
 
         if (userService.findOne(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
