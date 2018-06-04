@@ -25,7 +25,7 @@ export class UserService {
     return this._httpClient.get(`${this.controller}/findOne/${id}`).catch(err=>Observable.throw(err));
   }
 
-  getUserByPrincipal():Observable<User>{
+  getUserByPrincipal():Observable<User>{//todo zajve
     return this._httpClient.get(`${this.controller}/getUserByPrincipal`).catch(err=>Observable.throw(err));
   }
 
@@ -56,7 +56,7 @@ export class UserService {
     return this._httpClient.get(`${this.controller}/deleteUser`).catch(err=>Observable.throw(err));
   }
 
-  login(name:string , password:string):Observable<boolean>{
+  login(name:string , password:string):Observable<boolean>{//todo zajve
     return this._httpClient.get(`${this.controller}/login`,{params: new HttpParams().set('name',name).set('password',password)})
       .catch(err=>Observable.throw(err));
   }
@@ -66,7 +66,7 @@ export class UserService {
       .catch(err=>Observable.throw(err));
   }
 
-  getPrincipal(name:string):Observable<boolean>{
+  getPrincipal(name:string):Observable<boolean>{//todo zajve
     return this._httpClient.get(`${this.controller}/getPrincipal`,{params:new HttpParams().set('name',name)})
       .catch(err=>Observable.throw(err));
   }
