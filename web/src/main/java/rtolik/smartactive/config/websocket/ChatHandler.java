@@ -77,7 +77,7 @@ public class ChatHandler extends TextWebSocketHandler {
         }
     }
 
-    @Scheduled(fixedDelay = 2000)
+    @Scheduled(fixedDelay = 2050)
     private void  createChatrooms(){
         List<Message> messageList = new ArrayList<>();
         List<Category> categories = categoryService.findAll();
