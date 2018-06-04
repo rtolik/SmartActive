@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import rtolik.smartactive.config.websocket.ChatHandler;
 import rtolik.smartactive.config.websocket.utils.model.CategoryMessage;
-import rtolik.smartactive.models.Opportunities;
+import rtolik.smartactive.models.Opportunity;
 import rtolik.smartactive.models.enums.Status;
 import rtolik.smartactive.service.OpportunitiesService;
 
@@ -29,8 +29,8 @@ public class OpportunitiesController {
     private OpportunitiesService opportunitiesService;
 
     @PostMapping("/add")
-    private ResponseEntity<Opportunities> add(@RequestParam String opportunity, @RequestParam MultipartFile multipartFile, Principal principal) {
-        Opportunities opportunities = opportunitiesService.createOpportunities(opportunity, multipartFile, principal);
+    private ResponseEntity<Opportunity> add(@RequestParam String opportunity, @RequestParam MultipartFile multipartFile, Principal principal) {
+        Opportunity opportunities = opportunitiesService.createOpportunities(opportunity, multipartFile, principal);
         if (ChatHandler.categoryMessages.stream().noneMatch(categoryMessage ->
                 categoryMessage.getId().equals(opportunities.getCategory().getId())))
             ChatHandler.categoryMessages.add(new CategoryMessage(opportunities.getCategory()));
@@ -38,7 +38,7 @@ public class OpportunitiesController {
     }
 
     @GetMapping("/findOne/{id}")
-    private ResponseEntity<Opportunities> findOne(@PathVariable Integer id) {
+    private ResponseEntity<Opportunity> findOne(@PathVariable Integer id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -46,7 +46,7 @@ public class OpportunitiesController {
     }
 
     @GetMapping("/findAll")
-    private ResponseEntity<List<Opportunities>> findAll() {
+    private ResponseEntity<List<Opportunity>> findAll() {
         if (opportunitiesService.findAll() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -54,8 +54,8 @@ public class OpportunitiesController {
     }
 
     @GetMapping("/findAllActive")
-    private ResponseEntity<List<Opportunities>> findAllActive() {
-        List<Opportunities> opportunities = opportunitiesService.findAllActive();
+    private ResponseEntity<List<Opportunity>> findAllActive() {
+        List<Opportunity> opportunities = opportunitiesService.findAllActive();
         if (opportunities == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -63,7 +63,7 @@ public class OpportunitiesController {
     }
 
     @GetMapping("/findByUser")
-    private ResponseEntity<List<Opportunities>> findByUser(Principal principal) {
+    private ResponseEntity<List<Opportunity>> findByUser(Principal principal) {
         if (opportunitiesService.findAll() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -71,7 +71,7 @@ public class OpportunitiesController {
     }
 
     @GetMapping("/searchByKeywords")
-    private ResponseEntity<List<Opportunities>> findByKeywords(@RequestParam String keywords) {
+    private ResponseEntity<List<Opportunity>> findByKeywords(@RequestParam String keywords) {
         if (keywords == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -89,7 +89,7 @@ public class OpportunitiesController {
     }
 
     @GetMapping("/findAllInCategory/{id}")
-    private ResponseEntity<List<Opportunities>> findAllInCategory(@PathVariable Integer id) {
+    private ResponseEntity<List<Opportunity>> findAllInCategory(@PathVariable Integer id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -107,7 +107,7 @@ public class OpportunitiesController {
     }
 
     @GetMapping("/findByPrice")
-    private ResponseEntity<List<Opportunities>> findByPrice(@RequestParam Double price) {
+    private ResponseEntity<List<Opportunity>> findByPrice(@RequestParam Double price) {
         if (price == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -115,13 +115,13 @@ public class OpportunitiesController {
     }
 
     @GetMapping("/multipleFilter")
-    private ResponseEntity<List<Opportunities>> multipleFilter(@RequestParam(required = false) Double maxPrice,
-                                                               @RequestParam(required = false) Integer categoryId,
-                                                               @RequestParam(required = false) String keywords) {
+    private ResponseEntity<List<Opportunity>> multipleFilter(@RequestParam(required = false) Double maxPrice,
+                                                             @RequestParam(required = false) Integer categoryId,
+                                                             @RequestParam(required = false) String keywords) {
         if (maxPrice == null && categoryId == null && keywords == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        List<Opportunities> filterlist = opportunitiesService.findAll();
+        List<Opportunity> filterlist = opportunitiesService.findAll();
         if (maxPrice != null) {
             filterlist = opportunitiesService.filterListByMaxPrice(filterlist, maxPrice);
         }

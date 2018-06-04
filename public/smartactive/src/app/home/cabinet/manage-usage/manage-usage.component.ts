@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {MenageUsageService} from "./manage-usage.service";
 import {Router} from "@angular/router";
-import {Usage} from "../../../../shared/models/usage";
+import {Opportunity} from "../../../../shared/models/opportunity";
 import {AppComponent} from "../../../app.component";
 
 @Component({
@@ -14,7 +14,7 @@ export class ManageUsageComponent implements OnInit {
 
 
   Statuses;
-  LoadedOpporByUser: Usage[]=[];
+  LoadedOpporByUser: Opportunity[]=[];
 
   dropList: string[] = [];
 

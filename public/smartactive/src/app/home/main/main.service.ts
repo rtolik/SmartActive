@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {Usage} from "../../../shared/models/usage";
+import {Opportunity} from "../../../shared/models/opportunity";
 import {Url} from "../../../shared/config/url";
 import {Category} from "../../../shared/models/category";
 
@@ -12,7 +12,7 @@ export class MainService {
   }
 
 
-  researchCategory(text: string, price:string,catId:string): Observable<Usage[]> {
+  researchCategory(text: string, price:string,catId:string): Observable<Opportunity[]> {
     let headers = new Headers();
     // headers.append('Access-Control-Allow-Headers', 'application/json');
     // headers.append('Access-Control-Allow-Methods', 'PUT');

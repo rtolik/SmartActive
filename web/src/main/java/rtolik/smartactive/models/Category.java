@@ -20,7 +20,7 @@ public class Category {
 
     @JsonIgnore
     @OneToMany(mappedBy = "category")
-    private List<Opportunities> services;
+    private List<Opportunity> services;
 
     public Category() {
     }
@@ -47,11 +47,11 @@ public class Category {
         return this;
     }
 
-    public List<Opportunities> getServices() {
+    public List<Opportunity> getServices() {
         return services;
     }
 
-    public Category setServices(List<Opportunities> services) {
+    public Category setServices(List<Opportunity> services) {
         this.services = services;
         return this;
     }

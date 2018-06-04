@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Usage} from "../../../../../shared/models/usage";
+import {Opportunity} from "../../../../../shared/models/opportunity";
 import {MenageUsageService} from "../manage-usage.service";
 
 @Component({
@@ -10,7 +10,7 @@ import {MenageUsageService} from "../manage-usage.service";
 })
 export class ManageUsageOneComponent implements OnInit {
 
-  @Input() usage:Usage;
+  @Input() usage:Opportunity;
 
   constructor(private menageUsageService:MenageUsageService) { }
 

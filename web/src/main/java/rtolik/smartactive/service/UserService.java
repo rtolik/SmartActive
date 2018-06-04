@@ -1,7 +1,7 @@
 package rtolik.smartactive.service;
 
 
-import rtolik.smartactive.models.Opportunities;
+import rtolik.smartactive.models.Opportunity;
 import rtolik.smartactive.models.User;
 
 import java.security.Principal;
@@ -37,7 +37,7 @@ public interface UserService {
 
     void updatePassword(String userUuid,String password);
 
-    List<Opportunities> findLiked(Integer userId);
+    List<Opportunity> findLiked(Integer userId);
 
     Boolean like(Integer userId, Integer opportunityId);
 

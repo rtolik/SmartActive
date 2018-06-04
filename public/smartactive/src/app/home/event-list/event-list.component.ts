@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from "@angular/core";
-import {Usage} from "../../../shared/models/usage";
+import {Opportunity} from "../../../shared/models/opportunity";
 import {AppComponent} from "../../app.component";
 import {Category} from "../../../shared/models/category";
 
@@ -10,7 +10,7 @@ import {Category} from "../../../shared/models/category";
 })
 export class EventListComponent implements OnInit {
 
-    usagesList: Usage[] = [];
+    usagesList: Opportunity[] = [];
   lang:string;
 
   constructor() {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppComponent} from "../../app.component";
-import {Usage} from "../../../shared/models/usage";
+import {Opportunity} from "../../../shared/models/opportunity";
 import {ActivatedRoute, RouterLinkActive} from "@angular/router";
 import {EventOneService} from "./event-one.service";
 import {Url} from "../../../shared/config/url";
@@ -14,7 +14,7 @@ import {Url} from "../../../shared/config/url";
 export class EventOneComponent implements OnInit {
 
   lang: string;
-  usage: Usage;
+  usage: Opportunity;
   isReady = false;
   url: string = Url.url;
 

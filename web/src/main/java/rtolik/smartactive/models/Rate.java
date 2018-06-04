@@ -19,7 +19,7 @@ public class Rate {
 
     @JsonIgnore
     @ManyToOne
-    private Opportunities opportunity;
+    private Opportunity opportunity;
 
     public Rate() {
         this.voices = 0;
@@ -58,11 +58,11 @@ public class Rate {
         return this;
     }
 
-    public Opportunities getOpportunity() {
+    public Opportunity getOpportunity() {
         return opportunity;
     }
 
-    public Rate setOpportunity(Opportunities opportunity) {
+    public Rate setOpportunity(Opportunity opportunity) {
         this.opportunity = opportunity;
         return this;
     }

@@ -42,11 +42,11 @@ public class User implements UserDetails {
     @Cascade(CascadeType.DELETE)
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private List<Opportunities> services;
+    private List<Opportunity> services;
     @Cascade(CascadeType.DELETE)
     @JsonIgnore
     @ManyToMany
-    private List<Opportunities> liked;
+    private List<Opportunity> liked;
 
     public User() {
     }
@@ -175,20 +175,20 @@ public class User implements UserDetails {
         return this;
     }
 
-    public List<Opportunities> getServices() {
+    public List<Opportunity> getServices() {
         return services;
     }
 
-    public User setServices(List<Opportunities> services) {
+    public User setServices(List<Opportunity> services) {
         this.services = services;
         return this;
     }
 
-    public List<Opportunities> getLiked() {
+    public List<Opportunity> getLiked() {
         return liked;
     }
 
-    public User setLiked(List<Opportunities> liked) {
+    public User setLiked(List<Opportunity> liked) {
         this.liked = liked;
         return this;
     }

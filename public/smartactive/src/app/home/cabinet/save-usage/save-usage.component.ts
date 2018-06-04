@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AppComponent} from "../../../app.component";
-import {Usage} from "../../../../shared/models/usage";
+import {Opportunity} from "../../../../shared/models/opportunity";
 
 @Component({
   selector: 'app-save-usage',
@@ -10,7 +10,7 @@ import {Usage} from "../../../../shared/models/usage";
 export class SaveUsageComponent implements OnInit {
 
   lang:string;
-  savedUsages:Usage[]=[];
+  savedUsages:Opportunity[]=[];
 
   constructor() {
     this.lang = AppComponent.langService.slang;

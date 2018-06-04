@@ -1,4 +1,4 @@
-import {Usage} from "../models/usage";
+import {Opportunity} from "../models/opportunity";
 import {Subject} from "rxjs";
 import {Category} from "../models/category";
 /**
@@ -8,12 +8,12 @@ import {Category} from "../models/category";
 
 export class EventService {
 
-  public sSavedEvents:Usage[]=[];
-  private _savedEvents = new Subject<Usage[]>();
+  public sSavedEvents:Opportunity[]=[];
+  private _savedEvents = new Subject<Opportunity[]>();
   _savedEvents$ = this._savedEvents.asObservable();
 
-  public sEventList: Usage[] = [];
-  private _eventList = new Subject<Usage[]>();
+  public sEventList: Opportunity[] = [];
+  private _eventList = new Subject<Opportunity[]>();
   _eventList$ = this._eventList.asObservable();
 
 
@@ -33,7 +33,7 @@ export class EventService {
     return false;
   }
 
-  saveUsage(category: Usage) {
+  saveUsage(category: Opportunity) {
     if (!this.contains(this.sSavedEvents, category)) {
       this.sSavedEvents.push(category);
       this._savedEvents.next(this.sSavedEvents);
@@ -65,7 +65,7 @@ export class EventService {
     }
   }
 
-  addUsage(usage: Usage) {
+  addUsage(usage: Opportunity) {
     console.log(usage);
     if (!this.contains(this.sEventList, usage)) {
       this.sEventList.push(usage);
@@ -73,13 +73,13 @@ export class EventService {
     }
   }
 
-  addUsages(usages: Usage[]) {
+  addUsages(usages: Opportunity[]) {
     for (let usage of usages) {
       this.addUsage(usage);
     }
   }
 
-  removeUsage(usage: Usage) {
+  removeUsage(usage: Opportunity) {
     this.sEventList.slice(this.indexOf(this.sEventList, usage), 1);
     this._eventList.next(this.sEventList);
   }
@@ -89,13 +89,13 @@ export class EventService {
     this.sEventList = [];
   }
 
-  removeUsages(usages: Usage[]) {
+  removeUsages(usages: Opportunity[]) {
     for (let usage of usages) {
       this.removeUsage(usage);
     }
   }
 
-  activateUsage(usage: Usage, value: boolean) {
+  activateUsage(usage: Opportunity, value: boolean) {
     this.sEventList[this.indexOf(this.sEventList, usage)].active = value;
   }
 

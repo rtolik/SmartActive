@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Usage} from "../../../../../shared/models/usage";
+import {Opportunity} from "../../../../../shared/models/opportunity";
 
 @Component({
   selector: 'app-save-usage-one',
@@ -8,7 +8,7 @@ import {Usage} from "../../../../../shared/models/usage";
 })
 export class SaveUsageOneComponent implements OnInit {
 
-  @Input() usage:Usage;
+  @Input() usage:Opportunity;
 
   constructor() { }
 

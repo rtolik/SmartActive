@@ -1,6 +1,6 @@
 package rtolik.smartactive.service.impl;
 
-import rtolik.smartactive.models.Opportunities;
+import rtolik.smartactive.models.Opportunity;
 import rtolik.smartactive.models.User;
 import rtolik.smartactive.repository.UserRepository;
 
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Opportunities> findLiked(Integer userId) {
+    public List<Opportunity> findLiked(Integer userId) {
         return findOne(userId).getLiked();
     }
 
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
         try {
 
             User tmp= findOne(userId);
-            List<Opportunities> liked= tmp.getLiked();
+            List<Opportunity> liked= tmp.getLiked();
             liked.add(opportunitiesService.findOne(opportunityId));
             save(tmp.setLiked(liked));
         }

@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Anatoliy on 07.10.2017.
  */
 @Entity
-    public class Opportunities {
+    public class Opportunity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,11 +48,11 @@ import java.util.List;
     @OneToMany(mappedBy = "opportunity")
     private List<Rate> rates;
 
-    public Opportunities() {
+    public Opportunity() {
         this.rating=0.0;
     }
 
-    public Opportunities(String name, String offerDescription, String photoPath, Double price, Status status, Boolean isActive) {
+    public Opportunity(String name, String offerDescription, String photoPath, Double price, Status status, Boolean isActive) {
         this.name = name;
         this.offerDescription = offerDescription;
         this.photoPath = photoPath;
@@ -66,7 +66,7 @@ import java.util.List;
         return id;
     }
 
-    public Opportunities setId(Integer id) {
+    public Opportunity setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -75,7 +75,7 @@ import java.util.List;
         return name;
     }
 
-    public Opportunities setName(String name) {
+    public Opportunity setName(String name) {
         this.name = name;
         return this;
     }
@@ -84,7 +84,7 @@ import java.util.List;
         return offerDescription;
     }
 
-    public Opportunities setOfferDescription(String offerDescription) {
+    public Opportunity setOfferDescription(String offerDescription) {
         this.offerDescription = offerDescription;
         return this;
     }
@@ -93,7 +93,7 @@ import java.util.List;
         return photoPath;
     }
 
-    public Opportunities setPhotoPath(String photoPath) {
+    public Opportunity setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
         return this;
     }
@@ -102,7 +102,7 @@ import java.util.List;
         return price;
     }
 
-    public Opportunities setPrice(Double price) {
+    public Opportunity setPrice(Double price) {
         this.price = price;
         return this;
     }
@@ -111,7 +111,7 @@ import java.util.List;
         return rating;
     }
 
-    public Opportunities setRating(Double rating) {
+    public Opportunity setRating(Double rating) {
         this.rating = rating;
         return this;
     }
@@ -120,7 +120,7 @@ import java.util.List;
         return status;
     }
 
-    public Opportunities setStatus(Status status) {
+    public Opportunity setStatus(Status status) {
         this.status = status;
         return this;
     }
@@ -129,7 +129,7 @@ import java.util.List;
         return isActive;
     }
 
-    public Opportunities setActive(Boolean active) {
+    public Opportunity setActive(Boolean active) {
         isActive = active;
         return this;
     }
@@ -138,7 +138,7 @@ import java.util.List;
         return category;
     }
 
-    public Opportunities setCategory(Category category) {
+    public Opportunity setCategory(Category category) {
         this.category = category;
         return this;
     }
@@ -147,7 +147,7 @@ import java.util.List;
         return user;
     }
 
-    public Opportunities setUser(User user) {
+    public Opportunity setUser(User user) {
         this.user = user;
         return this;
     }
@@ -156,7 +156,7 @@ import java.util.List;
         return rates;
     }
 
-    public Opportunities setRates(List<Rate> rates) {
+    public Opportunity setRates(List<Rate> rates) {
         this.rates = rates;
         return this;
     }

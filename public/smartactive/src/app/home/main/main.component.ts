@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Category} from "../../../shared/models/category";
 import {Router} from "@angular/router";
-import {Usage} from "../../../shared/models/usage";
+import {Opportunity} from "../../../shared/models/opportunity";
 import {MainService} from "./main.service";
 import {AppComponent} from "../../app.component";
 
@@ -14,7 +14,7 @@ import {AppComponent} from "../../app.component";
 export class MainComponent implements OnInit {
 
   categoriesList: Category[] = [];
-  usagesList: Usage[] = [];
+  usagesList: Opportunity[] = [];
   lang: string;
 
   constructor(private _router: Router, private _mainService: MainService) {

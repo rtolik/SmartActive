@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {Url} from "../../../../shared/config/url";
-import {Usage} from "../../../../shared/models/usage";
+import {Opportunity} from "../../../../shared/models/opportunity";
 
 
 @Injectable()

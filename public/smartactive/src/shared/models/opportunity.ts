@@ -3,7 +3,7 @@ import {Category} from "./category";
  * Created by Kishka on 07.10.2017.
  */
 
-export class Usage{
+export class Opportunity{
   id:number;
   name:string;
   offerDescription:string;

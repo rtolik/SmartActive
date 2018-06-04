@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
-import {Usage} from "../../../../shared/models/usage";
+import {Opportunity} from "../../../../shared/models/opportunity";
 import {AppComponent} from "../../../app.component";
 import {Url} from "../../../../shared/config/url";
 import {RateService} from "../../../../shared/service/rate.service";
@@ -20,7 +20,7 @@ export class EventListOneElementComponent implements OnInit {
   @ViewChild('star_4') star_4: ElementRef;
   @ViewChild('star_5') star_5: ElementRef;
 
-  @Input() usage: Usage;
+  @Input() usage: Opportunity;
   lang: string;
   countStar: number;
   url:string=Url.url;

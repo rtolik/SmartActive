@@ -1,6 +1,6 @@
 package rtolik.smartactive.service;
 
-import rtolik.smartactive.models.Opportunities;
+import rtolik.smartactive.models.Opportunity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
@@ -8,38 +8,38 @@ import java.util.List;
 
 public interface OpportunitiesService {
 
-    Opportunities save(Opportunities service);
+    Opportunity save(Opportunity service);
 
-    Opportunities findOne(Integer id);
+    Opportunity findOne(Integer id);
 
-    List<Opportunities> findAll();
+    List<Opportunity> findAll();
 
-    List<Opportunities> findAllActive();
+    List<Opportunity> findAllActive();
 
     Boolean delete(Integer id);
 
     Boolean setActive(Boolean active, Principal principal,Integer opportunityId);
 
-    List<Opportunities> findAllByCategory(Integer idOfCategory);
+    List<Opportunity> findAllByCategory(Integer idOfCategory);
 
-    List<Opportunities> searchByWord(String word);
+    List<Opportunity> searchByWord(String word);
 
     Boolean saveOpportunitiesToUser(Principal principal,Integer id);
 
     void saveOpportunitiesToUserLiked(Principal principal,Integer id);
 
-    Opportunities createOpportunities(String opportunity,
-                                      MultipartFile multipartFile, Principal principal);
+    Opportunity createOpportunities(String opportunity,
+                                    MultipartFile multipartFile, Principal principal);
 
-    List<Opportunities> findByMaxPrice(Double maxPrice);
+    List<Opportunity> findByMaxPrice(Double maxPrice);
 
-    List<Opportunities> filterListByMaxPrice(List<Opportunities> filterList, Double maxPrice);
+    List<Opportunity> filterListByMaxPrice(List<Opportunity> filterList, Double maxPrice);
 
-    List<Opportunities> filterListByCategory(List<Opportunities> filterList, Integer categoryId);
+    List<Opportunity> filterListByCategory(List<Opportunity> filterList, Integer categoryId);
 
-    List<Opportunities> filterListByKeywords(List<Opportunities> filterlist, String keywords);
+    List<Opportunity> filterListByKeywords(List<Opportunity> filterlist, String keywords);
 
-    List<Opportunities> findByUser(Principal principal);
+    List<Opportunity> findByUser(Principal principal);
 
-    //List<Opportunities> filterListBySplitedKeywords(List<Opportunities> filterlist, String keywords);
+    //List<Opportunity> filterListBySplitedKeywords(List<Opportunity> filterlist, String keywords);
 }

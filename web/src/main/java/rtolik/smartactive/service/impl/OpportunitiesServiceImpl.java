@@ -3,7 +3,7 @@ package rtolik.smartactive.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import rtolik.smartactive.models.Opportunities;
+import rtolik.smartactive.models.Opportunity;
 import rtolik.smartactive.models.Rate;
 import rtolik.smartactive.models.User;
 import rtolik.smartactive.models.enums.Status;
@@ -36,22 +36,22 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     private FileBuilder fileBuilder;
 
     @Override
-    public Opportunities save(Opportunities service) {
+    public Opportunity save(Opportunity service) {
         return opportunitiesRepository.save(service);
     }
 
     @Override
-    public Opportunities findOne(Integer id) {
+    public Opportunity findOne(Integer id) {
         return opportunitiesRepository.findOne(id);
     }
 
     @Override
-    public List<Opportunities> findAll() {
+    public List<Opportunity> findAll() {
         return opportunitiesRepository.findAll();
     }
 
     @Override
-    public List<Opportunities> findAllActive() {
+    public List<Opportunity> findAllActive() {
         return findAll().stream().filter(opportunities -> opportunities.getActive().equals(true)).collect(toList());
     }
 
@@ -68,34 +68,34 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
 
     @Override
     public Boolean setActive(Boolean active, Principal principal, Integer opportunityId) {
-        Opportunities opportunities = opportunitiesRepository.findOne(opportunityId);
-        if (opportunities.getUser().getName().equals(principal.getName())) {
-            opportunitiesRepository.save(opportunities.setActive(active));
+        Opportunity opportunity = opportunitiesRepository.findOne(opportunityId);
+        if (opportunity.getUser().getName().equals(principal.getName())) {
+            opportunitiesRepository.save(opportunity.setActive(active));
             return true;
         }
         return false;
     }
 
     @Override
-    public List<Opportunities> findAllByCategory(Integer idOfCategory) {
+    public List<Opportunity> findAllByCategory(Integer idOfCategory) {
         return opportunitiesRepository.findAllByCategory_Id(idOfCategory);
     }
 
     @Override
-    public List<Opportunities> searchByWord(String word) {
-        List<Opportunities> opportunitiesList = new ArrayList<>();
-        for (Opportunities opportunities : findAll()) {
+    public List<Opportunity> searchByWord(String word) {
+        List<Opportunity> opportunityList = new ArrayList<>();
+        for (Opportunity opportunity : findAll()) {
             for (String splitedWorld : word.split(" ")) {
                 if (!splitedWorld.equals("and") && !splitedWorld.equals("и") &&
                         !splitedWorld.equals("і") && !splitedWorld.equals("ще") &&
                         !splitedWorld.equals("ещё") && !splitedWorld.equals("або") &&
                         !splitedWorld.equals("или") && !splitedWorld.equals(",") &&
                         !splitedWorld.equals("."))
-                    if (opportunities.getOfferDescription().contains(word) && opportunities.getActive().equals(true))
-                        opportunitiesList.add(opportunities);
+                    if (opportunity.getOfferDescription().contains(word) && opportunity.getActive().equals(true))
+                        opportunityList.add(opportunity);
             }
         }
-        return opportunitiesList;
+        return opportunityList;
     }
 
     @Override
@@ -112,14 +112,14 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     @Override
     public void saveOpportunitiesToUserLiked(Principal principal, Integer id) {
         User user= userService.findByName(principal.getName());
-        List<Opportunities> liked = user.getLiked();
+        List<Opportunity> liked = user.getLiked();
         liked.add(findOne(id));
         user.setLiked(liked);
     }
 
     @Override
-    public Opportunities createOpportunities(String opportunity, MultipartFile multipartFile, Principal principal) {
-        Opportunities opportunities = JsonMapper.json(opportunity, Opportunities.class);
+    public Opportunity createOpportunities(String opportunity, MultipartFile multipartFile, Principal principal) {
+        Opportunity opportunities = JsonMapper.json(opportunity, Opportunity.class);
         opportunities
                 .setStatus(Status.PUBLISHED)
                 .setActive(true)
@@ -134,28 +134,28 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     }
 
     @Override
-    public List<Opportunities> findByMaxPrice(Double maxPrice) {
+    public List<Opportunity> findByMaxPrice(Double maxPrice) {
         return findAll().stream()
                 .filter(opportunities -> opportunities.getPrice() <= maxPrice)
                 .collect(toList());
     }
 
     @Override
-    public List<Opportunities> filterListByMaxPrice(List<Opportunities> filterList, Double maxPrice) {
+    public List<Opportunity> filterListByMaxPrice(List<Opportunity> filterList, Double maxPrice) {
         return filterList.stream()
                 .filter(opportunities -> opportunities.getPrice() <= maxPrice)
                 .collect(toList());
     }
 
     @Override
-    public List<Opportunities> filterListByCategory(List<Opportunities> filterList, Integer categoryId) {
+    public List<Opportunity> filterListByCategory(List<Opportunity> filterList, Integer categoryId) {
         return filterList.stream()
                 .filter(opportunities -> opportunities.getCategory().getId().equals(categoryId))
                 .collect(toList());
     }
 
     @Override
-    public List<Opportunities> filterListByKeywords(List<Opportunities> filterlist, String keywords) {
+    public List<Opportunity> filterListByKeywords(List<Opportunity> filterlist, String keywords) {
         return filterlist.stream()
                 .filter(opportunities ->
                         filterOpportunityBySplitedKeywords(opportunities.getId(), keywords) &&
@@ -164,7 +164,7 @@ public class OpportunitiesServiceImpl implements OpportunitiesService {
     }
 
     @Override
-    public List<Opportunities> findByUser(Principal principal) {
+    public List<Opportunity> findByUser(Principal principal) {
         return opportunitiesRepository.findAllByUser_Name(principal.getName());
     }
 
