@@ -29,7 +29,8 @@ public class OpportunitiesController {
     private OpportunitiesService opportunitiesService;
 
     @PostMapping("/add/{id}")
-    private ResponseEntity<Opportunity> add(@RequestParam String opportunity, @RequestParam MultipartFile multipartFile, @PathVariable Integer id) {
+    private ResponseEntity<Opportunity> add(@RequestParam String opportunity, @RequestParam MultipartFile multipartFile,
+                                            @PathVariable Integer id) {
         Opportunity opportunities = opportunitiesService.createOpportunities(opportunity, multipartFile, id);
         if (ChatHandler.categoryMessages.stream().noneMatch(categoryMessage ->
                 categoryMessage.getId().equals(opportunities.getCategory().getId())))

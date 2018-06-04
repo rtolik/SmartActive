@@ -55,7 +55,8 @@ public class UserController {
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(userService.save(new User(name,password,email,color,true,phone,uuid)) ,HttpStatus.OK);
+        return new ResponseEntity<>(userService.save(new User(name,password,email,color,true,phone,uuid)),
+                                    HttpStatus.OK);
 
     }
 

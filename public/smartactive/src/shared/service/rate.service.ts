@@ -17,4 +17,9 @@ export class RateService{
       .map(res => res.json())
       .catch(err=>Observable.throw(err));
   }
+
+  incrementVoices(opportId:number,val:number):Observable<any>{
+    return this.http.get(`${Url.url}/rate/incrementVoices`,{params: new HttpParams().set('opportunityId',opportId+"")
+      .set('val',val+"")}).catch(err=> Observable.throw(err));
+  }
 }
